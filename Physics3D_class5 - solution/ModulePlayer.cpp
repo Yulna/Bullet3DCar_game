@@ -106,7 +106,7 @@ bool ModulePlayer::Start()
 	btVector3 sphereanchor(0,-n.size.y, 0);
 	btVector3 vehicleanchor(0, 2, 0);
 	btVector3 axisns(0,1, 0);
-	App->physics->Add_Hinge_Constraint(*vehicle->GetRigidBody(), *turret->GetRigidBody(), vehicleanchor, sphereanchor, axisns, axisns, true);
+	App->physics->Add_Hinge_Constraint(*vehicle->GetRigidBody(), *turret->GetRigidBody(), vehicleanchor, sphereanchor, axisns, axisns, true)->setLimit(0, 3.14);
 
 	btVector3 cannonanchor(-canon.height, 0, 0);
 	btVector3 turretanchor(0, n.size.y/6, 0);
