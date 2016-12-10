@@ -114,7 +114,7 @@ bool ModulePlayer::Start()
 	canon.height = 2.5;
 	canon.radius = 0.5;
 	canonbody = App->physics->AddBody(canon, 1);
-	App->physics->Add_Hinge_Constraint(*turret->GetRigidBody(), *canonbody->GetRigidBody(), turretanchor, cannonanchor, axisnturretcanon, axisnturretcanon, true);
+	App->physics->Add_Hinge_Constraint(*turret->GetRigidBody(), *canonbody->GetRigidBody(), turretanchor, cannonanchor, axisnturretcanon, axisnturretcanon, true)->setLimit(-1.08,0);
 
 	return true;
 }
@@ -162,9 +162,10 @@ update_status ModulePlayer::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 
+
+		canonbody->body->applyTorqueImpulse(btVector3(0, 0, 1));
 		LOG("WOLOLO");
 	}
-
 	
 
 	
