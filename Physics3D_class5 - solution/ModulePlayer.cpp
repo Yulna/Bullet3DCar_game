@@ -5,6 +5,8 @@
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
 
+#define PI 3.14159265
+
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
 	turn = acceleration = brake = 0.0f;
@@ -103,6 +105,8 @@ bool ModulePlayer::Start()
 
 
 	turret = App->physics->AddBody(n, 1);
+//	turret->body->forceActivationState(DISABLE_SIMULATION);
+
 	btVector3 sphereanchor(0,-n.size.y, 0);
 	btVector3 vehicleanchor(0, 2, 0);
 	btVector3 axisns(0,1, 0);
@@ -114,6 +118,8 @@ bool ModulePlayer::Start()
 	canon.height = 2.5;
 	canon.radius = 0.5;
 	canonbody = App->physics->AddBody(canon, 1);
+//	canonbody->body->forceActivationState(DISABLE_SIMULATION);
+
 	
 	btHingeConstraint* turretconst;
 	turretconst = App->physics->Add_Hinge_Constraint(*turret->GetRigidBody(), *canonbody->GetRigidBody(), turretanchor, cannonanchor, axisnturretcanon, axisnturretcanon, true);
@@ -142,14 +148,12 @@ update_status ModulePlayer::Update(float dt)
 	
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		canonbody->body->applyImpulse(btVector3(0, 0, 1), btVector3(-1, 0, 0));
 		if(turn < TURN_DEGREES)
 			turn +=  TURN_DEGREES;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		canonbody->body->applyImpulse(btVector3(0, 0, 1), btVector3(1, 0, 0));
 		if(turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
@@ -197,12 +201,62 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT )
 	{
+		float yaw, pitch, roll;
+		turret->body->getWorldTransform().getBasis().getEulerZYX(yaw, pitch, roll);
+		if (pitch < PI && pitch < -PI)
+		{
 
+			mat3x3 R(cos(10 * PI / 180), 0, sin(10 * PI / 180), 0, 1, 0, -sin(10 * PI / 180), 0, cos(10 * PI / 180));
+			mat4x4 A;
+			turret->GetTransform(A.M);
 
-		canonbody->body->applyTorqueImpulse(btVector3(0, 0, 1));
-		LOG("WOLOLO");
+			mat3x3 R2(A[0], A[1], A[2], A[4], A[5], A[6], A[8], A[9], A[10]);
+
+			mat3x3 R3 = R*R2;
+
+			A[0] = R3[0];
+			A[1] = R3[1];
+			A[2] = R3[2];
+			A[4] = R3[3];
+			A[5] = R3[4];
+			A[6] = R3[5];
+			A[8] = R3[6];
+			A[9] = R3[7];
+			A[10] = R3[8];
+
+			turret->SetTransform(A.M);
+
+		
+
+		}
+		//LOG("WOLOLO");
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		mat3x3 R(cos(-10 * PI / 180), 0, sin(-10 * PI / 180), 0, 1, 0, -sin(-10 * PI / 180), 0, cos(-10 * PI / 180));
+		mat4x4 A;
+		turret->GetTransform(A.M);
+
+		mat3x3 R2(A[0], A[1], A[2], A[4], A[5], A[6], A[8], A[9], A[10]);
+
+		mat3x3 R3 = R*R2;
+
+		A[0] = R3[0];
+		A[1] = R3[1];
+		A[2] = R3[2];
+		A[4] = R3[3];
+		A[5] = R3[4];
+		A[6] = R3[5];
+		A[8] = R3[6];
+		A[9] = R3[7];
+		A[10] = R3[8];
+
+		turret->SetTransform(A.M);
+
+		//LOG("WOLOLO");
 	}
 
 	vehicle->ApplyEngineForce(acceleration);
