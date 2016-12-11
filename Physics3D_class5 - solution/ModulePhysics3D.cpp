@@ -127,25 +127,25 @@ update_status ModulePhysics3D::Update(float dt)
 			item->data->Render();
 			item = item->next;
 		}
+		
+	}
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		Sphere s(1);
+		float *mat = new float[16];
+		App->player->canonbody->GetTransform(mat);
+		s.SetPos(mat[12], mat[13], mat[14]);
+		float force = 0.01f;
+		PhysBody3D *sbody;
+		sbody = AddBody(s, 1);
+		CanonBallsSpheres.PushBack(s);
+		int xmouse = App->input->GetMouseX();
+		int ymouse = App->input->GetMouseY();
+		sbody->GetRigidBody()->setIgnoreCollisionCheck(App->player->canonbody->GetRigidBody(), true);
+		sbody->GetRigidBody()->setIgnoreCollisionCheck(App->player->turret->GetRigidBody(), true);
+		sbody->Push(xmouse*force, ymouse*force, 10 * force);
+		CanonBallsBody.PushBack(sbody);
 
-		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		{
-			Sphere s(1);
-			float *mat = new float[16];
-			App->player->canonbody->GetTransform(mat);
-			s.SetPos(mat[12], mat[13], mat[14]);
-			float force = 0.01f;
-			PhysBody3D *sbody;
-			sbody = AddBody(s, 1);
-			CanonBallsSpheres.PushBack(s);
-			int xmouse = App->input->GetMouseX();
-			int ymouse = App->input->GetMouseY();
-			sbody->GetRigidBody()->setIgnoreCollisionCheck(App->player->canonbody->GetRigidBody(), true);
-			sbody->GetRigidBody()->setIgnoreCollisionCheck(App->player->turret->GetRigidBody(), true);
-			sbody->Push(xmouse*force, ymouse*force, 10 * force);
-			CanonBallsBody.PushBack(sbody);
-			
-		}
 	}
 
 	for (int i = 0; i < CanonBallsBody.Count(); i++) {
