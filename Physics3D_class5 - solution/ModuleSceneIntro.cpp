@@ -17,8 +17,8 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
-	App->camera->LookAt(vec3(0, 0, 0));
+	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
+	//App->camera->LookAt(vec3(0, 0, 0));
 
 	
 	//------Map-----
@@ -33,14 +33,14 @@ bool ModuleSceneIntro::Start()
 	bodcub1->SetPos(0.5, 8.5, 53);
 	MyPhysbodyCubeMap.PushBack(bodcub1);
 
-	Cube cub2;
+	/*Cube cub2;
 	PhysBody3D*bodcub2;
 	cub2.size.x = 8;
 	cub2.size.z = 200;
 	MyCubeMap.PushBack(cub2);
 	bodcub2 = App->physics->AddBody(cub2, 0);
 	bodcub2->SetPos(8, 0, 2);
-	MyPhysbodyCubeMap.PushBack(bodcub2);
+	MyPhysbodyCubeMap.PushBack(bodcub2);*/
 	
 	Cube cub3;
 	PhysBody3D*bodcub3;
@@ -108,6 +108,7 @@ bool ModuleSceneIntro::Start()
 	ballkickerObject = App->physics->AddBody(ballkicker, 1);
 	MyPhysbodySphereobj.PushBack(ballkickerObject);
 
+
 	Cube rect;
 	rect.size.y = 3;
 	MyCubeObj.PushBack(rect);
@@ -156,5 +157,8 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	if (body1->collision_listeners.getFirst() == body2->collision_listeners.getFirst()) {
+		LOG("HOLA");
+	}
 }
 

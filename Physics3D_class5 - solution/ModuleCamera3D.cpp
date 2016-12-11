@@ -43,7 +43,7 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	/*vec3 newPos(0,0,0);
+	vec3 newPos(0,0,0);
 	float speed = 3.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
@@ -60,7 +60,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	Position += newPos;
 	Reference += newPos;
-	*/
+
 
 
 	btVector3 temp = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin();
@@ -113,8 +113,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 	// Mouse motion ----------------
-	/*
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	
+	/*if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
@@ -126,7 +126,6 @@ update_status ModuleCamera3D::Update(float dt)
 		if(dx != 0)
 		{
 			float DeltaX = (float)dx * Sensitivity;
-
 			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
 			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
 			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));

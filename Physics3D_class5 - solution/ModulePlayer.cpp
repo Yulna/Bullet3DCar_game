@@ -114,7 +114,10 @@ bool ModulePlayer::Start()
 	canon.height = 2.5;
 	canon.radius = 0.5;
 	canonbody = App->physics->AddBody(canon, 1);
-	App->physics->Add_Hinge_Constraint(*turret->GetRigidBody(), *canonbody->GetRigidBody(), turretanchor, cannonanchor, axisnturretcanon, axisnturretcanon, true)->setLimit(-1.08,0);
+	
+	btHingeConstraint* turretconst;
+	turretconst = App->physics->Add_Hinge_Constraint(*turret->GetRigidBody(), *canonbody->GetRigidBody(), turretanchor, cannonanchor, axisnturretcanon, axisnturretcanon, true);
+	turretconst->setLimit(-1.08, 0);
 
 	return true;
 }
@@ -139,12 +142,14 @@ update_status ModulePlayer::Update(float dt)
 	
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
+		canonbody->body->applyImpulse(btVector3(0, 0, 1), btVector3(-1, 0, 0));
 		if(turn < TURN_DEGREES)
 			turn +=  TURN_DEGREES;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
+		canonbody->body->applyImpulse(btVector3(0, 0, 1), btVector3(1, 0, 0));
 		if(turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
@@ -169,17 +174,17 @@ update_status ModulePlayer::Update(float dt)
 		canonbody->body->applyTorqueImpulse(btVector3(0, 0, 1));
 		LOG("WOLOLO");
 	}
-	
 
-	
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
 	
 	vehicle->Render();
 	turret->GetTransform(&n.transform);
+
 	n.Render();
 	canonbody->GetTransform(&canon.transform);
+	
 	canon.Render();
 
 	char title[80];
