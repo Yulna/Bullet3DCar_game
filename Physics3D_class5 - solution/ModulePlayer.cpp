@@ -170,7 +170,7 @@ update_status ModulePlayer::Update(float dt)
 		float *mat = new float[16];
 		App->player->canonbody->GetTransform(mat);
 		s.SetPos(mat[12], mat[13], mat[14]);
-		float force = 20.0f;
+		float force = 30.0f;
 		PhysBody3D *sbody;
 		sbody = App->physics->AddBody(s, 1);
 		CanonBallsSpheres.PushBack(s);
@@ -184,9 +184,9 @@ update_status ModulePlayer::Update(float dt)
 		mat4x4 Aa;
 		App->player->canonbody->body->getWorldTransform().getOpenGLMatrix(Aa.M);
 		Zx = Aa[0];
-		Zy = Aa[4];
-		Zz = Aa[8];
-		sbody->Push(-Zx*force, -Zy*force, -Zz*force);
+		Zy = Aa[1];
+		Zz = Aa[2];
+		sbody->Push(Zx*force, Zy*force, Zz*force);
 		CanonBallsBody.PushBack(sbody);
 
 	}
