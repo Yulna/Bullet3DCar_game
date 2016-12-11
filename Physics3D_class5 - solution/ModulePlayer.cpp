@@ -164,7 +164,37 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 
-	
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		Sphere s(1);
+		float *mat = new float[16];
+		App->player->canonbody->GetTransform(mat);
+		s.SetPos(mat[12], mat[13], mat[14]);
+		float force = 20.0f;
+		PhysBody3D *sbody;
+		sbody = App->physics->AddBody(s, 1);
+		CanonBallsSpheres.PushBack(s);
+		int xmouse = App->input->GetMouseX();
+		int ymouse = App->input->GetMouseY();
+		sbody->GetRigidBody()->setIgnoreCollisionCheck(App->player->canonbody->GetRigidBody(), true);
+		sbody->GetRigidBody()->setIgnoreCollisionCheck(App->player->turret->GetRigidBody(), true);
+
+		//Testing the shoting stuff
+		float Zx, Zy, Zz;
+		mat4x4 Aa;
+		App->player->canonbody->body->getWorldTransform().getOpenGLMatrix(Aa.M);
+		Zx = Aa[0];
+		Zy = Aa[4];
+		Zz = Aa[8];
+		sbody->Push(-Zx*force, -Zy*force, -Zz*force);
+		CanonBallsBody.PushBack(sbody);
+
+	}
+
+	for (int i = 0; i < CanonBallsBody.Count(); i++) {
+		CanonBallsSpheres[i].Render();
+		CanonBallsBody[i]->GetTransform(&CanonBallsSpheres[i].transform);
+	}
 
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)

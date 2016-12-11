@@ -25,6 +25,8 @@ public:
 	Cylinder canon;
 	PhysBody3D* canonbody;
 	PhysVehicle3D* vehicle;
+	p2DynArray<Sphere> CanonBallsSpheres;
+	p2DynArray<PhysBody3D*> CanonBallsBody;
 	float turn;
 	float acceleration;
 	float brake;

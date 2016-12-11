@@ -53,8 +53,7 @@ private:
 	p2List<btDefaultMotionState*> motions;
 	p2List<btTypedConstraint*> constraints;
 	p2List<PhysVehicle3D*> vehicles;
-	p2DynArray<Sphere> CanonBallsSpheres;
-	p2DynArray<PhysBody3D*> CanonBallsBody;
+	
 };
 
 class DebugDrawer : public btIDebugDraw
