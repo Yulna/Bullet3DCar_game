@@ -159,6 +159,9 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 
+	
+
+
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 

@@ -135,7 +135,7 @@ update_status ModulePhysics3D::Update(float dt)
 		float *mat = new float[16];
 		App->player->canonbody->GetTransform(mat);
 		s.SetPos(mat[12], mat[13], mat[14]);
-		float force = 0.01f;
+		float force = 20.0f;
 		PhysBody3D *sbody;
 		sbody = AddBody(s, 1);
 		CanonBallsSpheres.PushBack(s);
@@ -143,7 +143,15 @@ update_status ModulePhysics3D::Update(float dt)
 		int ymouse = App->input->GetMouseY();
 		sbody->GetRigidBody()->setIgnoreCollisionCheck(App->player->canonbody->GetRigidBody(), true);
 		sbody->GetRigidBody()->setIgnoreCollisionCheck(App->player->turret->GetRigidBody(), true);
-		sbody->Push(xmouse*force, ymouse*force, 10 * force);
+		
+		//Testing the shoting stuff
+		float Zx, Zy, Zz;
+		mat4x4 Aa;
+		App->player->canonbody->body->getWorldTransform().getOpenGLMatrix(Aa.M);
+		Zx = Aa[0];
+		Zy = Aa[4];
+		Zz = Aa[8];
+		sbody->Push(-Zx*force,- Zy*force, -Zz*force);
 		CanonBallsBody.PushBack(sbody);
 
 	}
