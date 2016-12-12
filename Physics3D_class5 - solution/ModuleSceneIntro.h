@@ -3,6 +3,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include"j1PerfTimer.h"
 
 #define MAX_SNAKE 2
 #define MAX_CUBE 50
@@ -42,7 +43,7 @@ public:
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
 
-
+	PhysBody3D*ballkickerObject;
 	Sphere n;
 	PhysBody3D* turret;
 	p2DynArray<Cube> MyCubeMap;
@@ -54,4 +55,6 @@ public:
 	p2DynArray<Cube> MyCubeObj;
 	p2DynArray<PhysBody3D*> MyPhysbodyCubeobj;
 	
+	j1PerfTimer timer;
+
 };

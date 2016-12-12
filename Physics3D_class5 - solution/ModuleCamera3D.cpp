@@ -63,7 +63,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 
-	btVector3 temp = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin();
+	/*btVector3 temp = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin();
 
 	float* tempC = new float[16];
 	App->player->vehicle->vehicle->getChassisWorldTransform().getOpenGLMatrix(tempC);
@@ -76,7 +76,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	Position += C*vec3(0, 3, -10);
 
-	LookAt(vec3(temp.getX(), temp.getY(), temp.getZ()));
+	LookAt(vec3(temp.getX(), temp.getY(), temp.getZ()));*/
 
 
 	/*
@@ -114,7 +114,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Mouse motion ----------------
 	
-	/*if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
@@ -147,7 +147,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		Position = Reference + Z * length(Position);
 	}
-	*/
+	
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 

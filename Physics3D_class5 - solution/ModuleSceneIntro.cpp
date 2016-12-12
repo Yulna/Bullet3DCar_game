@@ -104,10 +104,10 @@ bool ModuleSceneIntro::Start()
 	ballkicker.radius = 1;
 	MySphereObj.PushBack(ballkicker);
 	
-	PhysBody3D*ballkickerObject;
+
 	ballkickerObject = App->physics->AddBody(ballkicker, 1);
 	MyPhysbodySphereobj.PushBack(ballkickerObject);
-
+	ballkickerObject->collision_listeners.add(this);
 
 	Cube rect;
 	rect.size.y = 3;
@@ -119,7 +119,7 @@ bool ModuleSceneIntro::Start()
 
 	//P2P Constraint to make ball kicker with rect 
 	App->physics->Add_P2P_Constraint(*ballkickerObject->GetRigidBody(), *RectObject->GetRigidBody(), btVector3(0, 1, 0), btVector3(0, 1, 0), true);
-
+	timer.Start();
 	
 	
 	return ret;
@@ -157,8 +157,14 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	if (body1->collision_listeners.getFirst() == body2->collision_listeners.getFirst()) {
-		LOG("HOLA");
+	int timepassed;
+	for (int i = 0; i < App->player->CanonBallsBody.Count(); i++) {
+		timepassed = timer.ReadMs();
+		if ((ballkickerObject == body1 || ballkickerObject == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && (timepassed>=1000)) {
+			App->player->punctuation += 10;
+			LOG("Puntuation: %i", App->player->punctuation);
+			timer.Start();
+		}
 	}
 }
 
