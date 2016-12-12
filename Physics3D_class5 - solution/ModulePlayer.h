@@ -33,4 +33,5 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+	int punctuation;
 };
