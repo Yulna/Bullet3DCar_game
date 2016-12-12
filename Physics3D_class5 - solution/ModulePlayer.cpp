@@ -101,11 +101,13 @@ bool ModulePlayer::Start()
 	
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 12, 10);
+	vehicle->SetPos(0, 0, 10);
 
 
 	turret = App->physics->AddBody(n, 1);
 //	turret->body->forceActivationState(DISABLE_SIMULATION);
+
+
 
 	btVector3 sphereanchor(0,-n.size.y, 0);
 	btVector3 vehicleanchor(0, 2, 0);
@@ -121,9 +123,12 @@ bool ModulePlayer::Start()
 //	canonbody->body->forceActivationState(DISABLE_SIMULATION);
 
 	
-	btHingeConstraint* turretconst;
-	turretconst = App->physics->Add_Hinge_Constraint(*turret->GetRigidBody(), *canonbody->GetRigidBody(), turretanchor, cannonanchor, axisnturretcanon, axisnturretcanon, true);
-	turretconst->setLimit(-1.08, 0);
+
+	canon_turretconst = App->physics->Add_Hinge_Constraint(*turret->GetRigidBody(), *canonbody->GetRigidBody(), turretanchor, cannonanchor, axisnturretcanon, axisnturretcanon, true);
+	canon_turretconst->setLimit(-1.08, 0);
+	canon_turretconst->enableMotor(true);
+	canon_turretconst->setMaxMotorImpulse(10.0f);
+
 
 	return true;
 }
@@ -201,12 +206,28 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 
+	if (App->input->GetKey(SDL_SCANCODE_W) != KEY_IDLE || App->input->GetKey(SDL_SCANCODE_S) != KEY_IDLE)
+	{
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			canon_turretconst->setMotorTargetVelocity(-2);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			canon_turretconst->setMotorTargetVelocity(2);
+		}
+	}
+	else
+	{
+		//Must be toched to match the gravity force
+		canon_turretconst->setMotorTargetVelocity(-0.07);
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT )
 	{
-		float yaw, pitch, roll;
-		turret->body->getWorldTransform().getBasis().getEulerZYX(yaw, pitch, roll);
-		if (pitch < PI && pitch < -PI)
-		{
+		
 
 			mat3x3 R(cos(10 * PI / 180), 0, sin(10 * PI / 180), 0, 1, 0, -sin(10 * PI / 180), 0, cos(10 * PI / 180));
 			mat4x4 A;
@@ -226,11 +247,13 @@ update_status ModulePlayer::Update(float dt)
 			A[9] = R3[7];
 			A[10] = R3[8];
 
-			turret->SetTransform(A.M);
 
+
+			turret->SetTransform(A.M);
+		
 		
 
-		}
+	
 		//LOG("WOLOLO");
 	}
 

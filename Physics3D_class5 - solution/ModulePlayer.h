@@ -24,6 +24,9 @@ public:
 	PhysBody3D* turret;
 	Cylinder canon;
 	PhysBody3D* canonbody;
+
+	btHingeConstraint* canon_turretconst;
+
 	PhysVehicle3D* vehicle;
 	p2DynArray<Sphere> CanonBallsSpheres;
 	p2DynArray<PhysBody3D*> CanonBallsBody;
