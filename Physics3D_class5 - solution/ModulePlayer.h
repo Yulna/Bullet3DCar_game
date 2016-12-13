@@ -35,6 +35,6 @@ public:
 	float acceleration;
 	float brake;
 
-	int puntuation = 0;
 
+	int puntuation = 0;
 };
