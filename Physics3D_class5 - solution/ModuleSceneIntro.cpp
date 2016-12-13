@@ -161,8 +161,8 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	for (int i = 0; i < App->player->CanonBallsBody.Count(); i++) {
 		timepassed = timer.ReadMs();
 		if ((ballkickerObject == body1 || ballkickerObject == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && (timepassed>=1000)) {
-			App->player->punctuation += 10;
-			LOG("Puntuation: %i", App->player->punctuation);
+			App->player->puntuation += 10;
+			LOG("Puntuation: %i", App->player->puntuation);
 			timer.Start();
 		}
 	}

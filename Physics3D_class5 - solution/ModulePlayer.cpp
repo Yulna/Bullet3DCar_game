@@ -112,7 +112,10 @@ bool ModulePlayer::Start()
 	btVector3 sphereanchor(0,-n.size.y, 0);
 	btVector3 vehicleanchor(0, 2, 0);
 	btVector3 axisns(0,1, 0);
-	App->physics->Add_Hinge_Constraint(*vehicle->GetRigidBody(), *turret->GetRigidBody(), vehicleanchor, sphereanchor, axisns, axisns, true)->setLimit(0, 3.14);
+	turret_carconst = App->physics->Add_Hinge_Constraint(*vehicle->GetRigidBody(), *turret->GetRigidBody(), vehicleanchor, sphereanchor, axisns, axisns, true);
+	turret_carconst->setLimit(0, 3.14);
+	turret_carconst->enableMotor(true);
+	turret_carconst->setMaxMotorImpulse(10.0f);
 
 	btVector3 cannonanchor(-canon.height, 0, 0);
 	btVector3 turretanchor(0, n.size.y/6, 0);
@@ -225,61 +228,23 @@ update_status ModulePlayer::Update(float dt)
 		canon_turretconst->setMotorTargetVelocity(-0.07);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT )
+
+	if (App->input->GetKey(SDL_SCANCODE_D) != KEY_IDLE || App->input->GetKey(SDL_SCANCODE_A) != KEY_IDLE)
 	{
-		
 
-			mat3x3 R(cos(10 * PI / 180), 0, sin(10 * PI / 180), 0, 1, 0, -sin(10 * PI / 180), 0, cos(10 * PI / 180));
-			mat4x4 A;
-			turret->GetTransform(A.M);
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			turret_carconst->setMotorTargetVelocity(-2);
+		}
 
-			mat3x3 R2(A[0], A[1], A[2], A[4], A[5], A[6], A[8], A[9], A[10]);
-
-			mat3x3 R3 = R*R2;
-
-			A[0] = R3[0];
-			A[1] = R3[1];
-			A[2] = R3[2];
-			A[4] = R3[3];
-			A[5] = R3[4];
-			A[6] = R3[5];
-			A[8] = R3[6];
-			A[9] = R3[7];
-			A[10] = R3[8];
-
-
-
-			turret->SetTransform(A.M);
-		
-		
-
-	
-		//LOG("WOLOLO");
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			turret_carconst->setMotorTargetVelocity(2);
+		}
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	else 
 	{
-		mat3x3 R(cos(-10 * PI / 180), 0, sin(-10 * PI / 180), 0, 1, 0, -sin(-10 * PI / 180), 0, cos(-10 * PI / 180));
-		mat4x4 A;
-		turret->GetTransform(A.M);
-
-		mat3x3 R2(A[0], A[1], A[2], A[4], A[5], A[6], A[8], A[9], A[10]);
-
-		mat3x3 R3 = R*R2;
-
-		A[0] = R3[0];
-		A[1] = R3[1];
-		A[2] = R3[2];
-		A[4] = R3[3];
-		A[5] = R3[4];
-		A[6] = R3[5];
-		A[8] = R3[6];
-		A[9] = R3[7];
-		A[10] = R3[8];
-
-		turret->SetTransform(A.M);
-
-		//LOG("WOLOLO");
+		turret_carconst->setMotorTargetVelocity(0);
 	}
 
 	vehicle->ApplyEngineForce(acceleration);

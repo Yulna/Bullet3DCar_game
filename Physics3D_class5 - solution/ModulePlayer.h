@@ -26,6 +26,7 @@ public:
 	PhysBody3D* canonbody;
 
 	btHingeConstraint* canon_turretconst;
+	btHingeConstraint* turret_carconst;
 
 	PhysVehicle3D* vehicle;
 	p2DynArray<Sphere> CanonBallsSpheres;
@@ -33,4 +34,7 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+
+	int puntuation = 0;
+
 };
