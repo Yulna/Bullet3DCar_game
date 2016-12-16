@@ -20,6 +20,8 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 
+
+
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
@@ -149,7 +151,7 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && vehicle->GetKmh() < 40)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
@@ -166,7 +168,7 @@ update_status ModulePlayer::Update(float dt)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && vehicle->GetKmh() > -40)
 	{
 		acceleration = -MAX_ACCELERATION;
 	}
@@ -182,7 +184,7 @@ update_status ModulePlayer::Update(float dt)
 		float *mat = new float[16];
 		App->player->canonbody->GetTransform(mat);
 		s.SetPos(mat[12], mat[13], mat[14]);
-		float force = 30.0f;
+		float force = 60.0f;
 		PhysBody3D *sbody;
 		sbody = App->physics->AddBody(s, 1);
 		CanonBallsSpheres.PushBack(s);
@@ -211,7 +213,7 @@ update_status ModulePlayer::Update(float dt)
 
 	//Must be toched to match the gravity force
 	canon_turretconst->setMotorTargetVelocity(-0.05);
-
+	turret_carconst->setMotorTargetVelocity(0);
 	
 	if (App->input->GetMouseXMotion() != 0)
 	{
@@ -219,7 +221,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 	if (App->input->GetMouseYMotion() != 0)
 	{
-		canon_turretconst->setMotorTargetVelocity(App->input->GetMouseYMotion());
+		canon_turretconst->setMotorTargetVelocity(App->input->GetMouseYMotion()/3);
 	}
 
 

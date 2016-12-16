@@ -35,6 +35,7 @@ public:
 	float acceleration;
 	float brake;
 
+	bool mouseControl = true;
 
 	int puntuation = 0;
 };
