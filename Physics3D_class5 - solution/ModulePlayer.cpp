@@ -225,7 +225,7 @@ update_status ModulePlayer::Update(float dt)
 	else
 	{
 		//Must be toched to match the gravity force
-		canon_turretconst->setMotorTargetVelocity(-0.07);
+		canon_turretconst->setMotorTargetVelocity(-0.05);
 	}
 
 
@@ -246,6 +246,12 @@ update_status ModulePlayer::Update(float dt)
 	{
 		turret_carconst->setMotorTargetVelocity(0);
 	}
+	if (App->input->GetMouseXMotion() != 0)
+	{
+		turret_carconst->setMotorTargetVelocity(App->input->GetMouseXMotion());
+	}
+
+
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
