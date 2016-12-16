@@ -25,13 +25,39 @@ bool ModuleSceneIntro::Start()
 
 	Cube cub1;
 	PhysBody3D*bodcub1;
-	cub1.size.x = 8;
-	cub1.size.z = 100;
-	cub1.SetRotation(10, vec3(1, 0, 0));
+	cub1.size.x = 0.5;
+	cub1.size.z = 200;
+	cub1.size.y = 2;
+	cub1.color = Blue;
 	MyCubeMap.PushBack(cub1);
 	bodcub1 = App->physics->AddBody(cub1, 0);
-	bodcub1->SetPos(0.5, 8.5, 53);
+	bodcub1->SetPos(95.5, 0.5, -122);
 	MyPhysbodyCubeMap.PushBack(bodcub1);
+
+	Cube cub2;
+	PhysBody3D*bodcub2;
+	cub2.size.x = 0.5;
+	cub2.size.z = 200;
+	cub2.size.y = 2;
+	cub2.color = Blue;
+	MyCubeMap.PushBack(cub2);
+	bodcub2 = App->physics->AddBody(cub2, 0);
+	bodcub2->SetPos(83, 0.5, -122);
+	MyPhysbodyCubeMap.PushBack(bodcub2);
+
+
+	Cube cub3;
+	PhysBody3D*bodcub3;
+	cub3.size.x = 0.5;
+	cub3.size.z = 10;
+	cub3.size.y = 2;
+	cub3.color = Blue;
+	cub3.SetRotation(-3.14, vec3(0, 1, 0));
+	MyCubeMap.PushBack(cub3);
+	bodcub3 = App->physics->AddBody(cub3, 0);
+	bodcub3->SetPos(83, 0.5, -22);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+
 
 	/*Cube cub2;
 	PhysBody3D*bodcub2;
@@ -40,7 +66,7 @@ bool ModuleSceneIntro::Start()
 	MyCubeMap.PushBack(cub2);
 	bodcub2 = App->physics->AddBody(cub2, 0);
 	bodcub2->SetPos(8, 0, 2);
-	MyPhysbodyCubeMap.PushBack(bodcub2);*/
+	MyPhysbodyCubeMap.PushBack(bodcub2);
 	
 	Cube cub3;
 	PhysBody3D*bodcub3;
@@ -58,27 +84,27 @@ bool ModuleSceneIntro::Start()
 	MyCubeMap.PushBack(cub4);
 	bodcub4 = App->physics->AddBody(cub4, 0);
 	bodcub4->SetPos(51.5, 0, 113.5);
-	MyPhysbodyCubeMap.PushBack(bodcub4);
+	MyPhysbodyCubeMap.PushBack(bodcub4);*/
 
-	Cube cub5;
+	/*Cube cub5;
 	PhysBody3D*bodcub5;
 	cub5.size.x = 8;
 	cub5.size.z = 200;
 	MyCubeMap.PushBack(cub5);
 	bodcub5 = App->physics->AddBody(cub5, 0);
-	bodcub5->SetPos(94.5, 0, 2);
+	bodcub5->SetPos(94.5, -0.5, -30);
 	MyPhysbodyCubeMap.PushBack(bodcub5);
+	*/
+	Cube PlainGame;
+	PhysBody3D*PlainGame_Body;
+	PlainGame.size.x = 500;
+	PlainGame.size.z = 500;
+	MyCubeMap.PushBack(PlainGame);
+	PlainGame_Body = App->physics->AddBody(PlainGame, 0);
+	PlainGame_Body->SetPos(102.5, -0.5, -30);
+	MyPhysbodyCubeMap.PushBack(PlainGame_Body);
 
-	Cube cub6;
-	PhysBody3D*bodcub6;
-	cub6.size.x = 8;
-	cub6.size.z = 200;
-	MyCubeMap.PushBack(cub6);
-	bodcub6 = App->physics->AddBody(cub6, 0);
-	bodcub6->SetPos(102.5, 0, 2);
-	MyPhysbodyCubeMap.PushBack(bodcub6);
-
-	Cube cub7;
+	/*Cube cub7;
 	PhysBody3D*bodcub7;
 	cub7.size.x = 110;
 	cub7.size.z = 8;
@@ -94,7 +120,7 @@ bool ModuleSceneIntro::Start()
 	MyCubeMap.PushBack(cub8);
 	bodcub8 = App->physics->AddBody(cub8, 0);
 	bodcub8->SetPos(51.5, 0, -110);
-	MyPhysbodyCubeMap.PushBack(bodcub8);
+	MyPhysbodyCubeMap.PushBack(bodcub8);*/
 
 
 	//-----Objects-----
@@ -121,7 +147,38 @@ bool ModuleSceneIntro::Start()
 	App->physics->Add_P2P_Constraint(*ballkickerObject->GetRigidBody(), *RectObject->GetRigidBody(), btVector3(0, 1, 0), btVector3(0, 1, 0), true);
 	timer.Start();
 	
-	
+
+
+
+	//-----Targets-----
+
+	Cube cub6;
+	PhysBody3D*bodcub6;
+	cub6.size.x = 4;
+	cub6.size.z = 0.5;
+	cub6.size.y = 2;
+	cub6.color = Black;
+	MyCubeMap.PushBack(cub6);
+	bodcub6 = App->physics->AddBody(cub6, 0);
+	bodcub6->SetPos(90.5, -0.5, -200);
+	MyPhysbodyCubeMap.PushBack(bodcub6);
+
+	Cube cub7;
+	PhysBody3D*bodcub7;
+	cub7.size.x = 4;
+	cub7.size.z = 0.5;
+	cub7.size.y = 14;
+	cub7.color = Black;
+	MyCubeMap.PushBack(cub7);
+	bodcub7 = App->physics->AddBody(cub7, 0);
+	bodcub7->SetPos(90.5, -0.5, -200);
+	MyPhysbodyCubeMap.PushBack(bodcub7);
+
+	btVector3 anchor_bodcub6(0,1,0);
+	btVector3 anchor_bodcub7(0, 0, -1);
+	btVector3 axis_bod6_7(0, 0, 1);
+	btHingeConstraint *enemyhinge;
+	enemyhinge = App->physics->Add_Hinge_Constraint(*bodcub6->GetRigidBody(), *bodcub7->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod6_7, axis_bod6_7, true);
 	return ret;
 }
 
