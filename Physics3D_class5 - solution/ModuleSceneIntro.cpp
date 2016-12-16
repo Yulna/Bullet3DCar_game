@@ -156,29 +156,41 @@ bool ModuleSceneIntro::Start()
 	PhysBody3D*bodcub6;
 	cub6.size.x = 4;
 	cub6.size.z = 0.5;
-	cub6.size.y = 2;
+	cub6.size.y = 1;
 	cub6.color = Black;
 	MyCubeMap.PushBack(cub6);
 	bodcub6 = App->physics->AddBody(cub6, 0);
-	bodcub6->SetPos(90.5, -0.5, -200);
+	bodcub6->SetPos(90.5, 0.1, -200);
 	MyPhysbodyCubeMap.PushBack(bodcub6);
 
 	Cube cub7;
 	PhysBody3D*bodcub7;
 	cub7.size.x = 4;
 	cub7.size.z = 0.5;
-	cub7.size.y = 14;
-	cub7.color = Black;
+	cub7.size.y = 5;
+	cub7.color = Red;
 	MyCubeMap.PushBack(cub7);
-	bodcub7 = App->physics->AddBody(cub7, 0);
-	bodcub7->SetPos(90.5, -0.5, -200);
+	bodcub7 = App->physics->AddBody(cub7, 1);
+	bodcub7->SetPos(90.5, 5, -200);
 	MyPhysbodyCubeMap.PushBack(bodcub7);
 
-	btVector3 anchor_bodcub6(0,1,0);
-	btVector3 anchor_bodcub7(0, 0, -1);
-	btVector3 axis_bod6_7(0, 0, 1);
+	Cube cub_7_6_Sensor;
+	PhysBody3D*bodcub_7_6_Sensor;
+	cub6.size.x = 12;
+	cub6.size.z = 2;
+	cub6.size.y = 5;
+	//SENSOR
+	cub6.color = Black;
+	MyCubeMap.PushBack(cub6);
+	bodcub6 = App->physics->AddBody(cub6, 0);
+	bodcub6->SetPos(90.5, 0.1, -200);
+	MyPhysbodyCubeMap.PushBack(bodcub6);
+
+	btVector3 anchor_bodcub6(0,0,0);
+	btVector3 anchor_bodcub7(0, -cub7.size.y/2, 0.5);
+	btVector3 axis_bod_6_7(1, 0, 0);
 	btHingeConstraint *enemyhinge;
-	enemyhinge = App->physics->Add_Hinge_Constraint(*bodcub6->GetRigidBody(), *bodcub7->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod6_7, axis_bod6_7, true);
+	enemyhinge = App->physics->Add_Hinge_Constraint(*bodcub6->GetRigidBody(), *bodcub7->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod_6_7, axis_bod_6_7, true);
 	return ret;
 }
 
