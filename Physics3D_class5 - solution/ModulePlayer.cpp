@@ -149,24 +149,24 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
 	
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		if(turn < TURN_DEGREES)
 			turn +=  TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		if(turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
 		acceleration = -MAX_ACCELERATION;
 	}
@@ -176,7 +176,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		Sphere s(1);
 		float *mat = new float[16];
@@ -209,43 +209,10 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_W) != KEY_IDLE || App->input->GetKey(SDL_SCANCODE_S) != KEY_IDLE)
-	{
+	//Must be toched to match the gravity force
+	canon_turretconst->setMotorTargetVelocity(-0.05);
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		{
-			canon_turretconst->setMotorTargetVelocity(-2);
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		{
-			canon_turretconst->setMotorTargetVelocity(2);
-		}
-	}
-	else
-	{
-		//Must be toched to match the gravity force
-		canon_turretconst->setMotorTargetVelocity(-0.05);
-	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_D) != KEY_IDLE || App->input->GetKey(SDL_SCANCODE_A) != KEY_IDLE)
-	{
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			turret_carconst->setMotorTargetVelocity(-2);
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		{
-			turret_carconst->setMotorTargetVelocity(2);
-		}
-	}
-	else 
-	{
-		turret_carconst->setMotorTargetVelocity(0);
-	}
+	
 	if (App->input->GetMouseXMotion() != 0)
 	{
 		turret_carconst->setMotorTargetVelocity(App->input->GetMouseXMotion());
