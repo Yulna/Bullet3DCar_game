@@ -178,7 +178,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_KP_0) == KEY_DOWN)
 	{
 		Sphere s(1);
 		float *mat = new float[16];
@@ -210,22 +210,54 @@ update_status ModulePlayer::Update(float dt)
 		CanonBallsBody[i]->GetTransform(&CanonBallsSpheres[i].transform);
 	}
 
-
-	//Must be toched to match the gravity force
-	canon_turretconst->setMotorTargetVelocity(-0.05);
-	turret_carconst->setMotorTargetVelocity(0);
-	
-	if (App->input->GetMouseXMotion() != 0)
+	if (mouse)
 	{
-		turret_carconst->setMotorTargetVelocity(App->input->GetMouseXMotion());
+		//Must be toched to match the gravity force
+		canon_turretconst->setMotorTargetVelocity(-0.05);
+		turret_carconst->setMotorTargetVelocity(0);
+
+		if (App->input->GetMouseXMotion() != 0)
+		{
+			turret_carconst->setMotorTargetVelocity(App->input->GetMouseXMotion());
+		}
+		if (App->input->GetMouseYMotion() != 0)
+		{
+			canon_turretconst->setMotorTargetVelocity(App->input->GetMouseYMotion() / 3);
+		}
 	}
-	if (App->input->GetMouseYMotion() != 0)
+	else
 	{
-		canon_turretconst->setMotorTargetVelocity(App->input->GetMouseYMotion()/3);
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT|| App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT|| App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			{
+				canon_turretconst->setMotorTargetVelocity(-2);
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			{
+				canon_turretconst->setMotorTargetVelocity(2);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			{
+				turret_carconst->setMotorTargetVelocity(-2);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			{
+				turret_carconst->setMotorTargetVelocity(2);
+			}
+		}
+		else 
+		{
+			canon_turretconst->setMotorTargetVelocity(-0.05);
+			turret_carconst->setMotorTargetVelocity(0);
+		}
 	}
 
-
-
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	{
+		mouse = !mouse;
+	}
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
