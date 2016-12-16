@@ -250,6 +250,11 @@ update_status ModulePlayer::Update(float dt)
 	{
 		turret_carconst->setMotorTargetVelocity(App->input->GetMouseXMotion());
 	}
+	if (App->input->GetMouseYMotion() != 0)
+	{
+		canon_turretconst->setMotorTargetVelocity(App->input->GetMouseYMotion());
+	}
+
 
 
 
