@@ -281,8 +281,16 @@ update_status ModulePlayer::Update(float dt)
 	canon.Render();
 
 	char title[80];
-	sprintf_s(title, "Puntuation:%i", puntuation);
-	App->window->SetTitle(title);
+	if (mouse) 
+	{
+		sprintf_s(title, "Puntuation:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, speedlimit);
+		App->window->SetTitle(title);
+	}
+	else
+	{
+		sprintf_s(title, "Puntuation:%i   SpeedLimit:%i   Camera control: Keys", puntuation, speedlimit);
+		App->window->SetTitle(title);
+	}
 
 	return UPDATE_CONTINUE;
 }
