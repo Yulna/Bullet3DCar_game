@@ -22,79 +22,7 @@ bool ModuleSceneIntro::Start()
 
 	
 	//------Map-----
-
-	Cube cub1;
-	PhysBody3D*bodcub1;
-	cub1.size.x = 0.5;
-	cub1.size.z = 200;
-	cub1.size.y = 2;
-	cub1.color = Blue;
-	MyCubeMap.PushBack(cub1);
-	bodcub1 = App->physics->AddBody(cub1, 0);
-	bodcub1->SetPos(95.5, 0.5, -122);
-	MyPhysbodyCubeMap.PushBack(bodcub1);
-
-	Cube cub2;
-	PhysBody3D*bodcub2;
-	cub2.size.x = 0.5;
-	cub2.size.z = 200;
-	cub2.size.y = 2;
-	cub2.color = Blue;
-	MyCubeMap.PushBack(cub2);
-	bodcub2 = App->physics->AddBody(cub2, 0);
-	bodcub2->SetPos(83, 0.5, -122);
-	MyPhysbodyCubeMap.PushBack(bodcub2);
-
-
-	Cube cub3;
-	PhysBody3D*bodcub3;
-	cub3.size.x = 0.5;
-	cub3.size.z = 10;
-	cub3.size.y = 2;
-	cub3.color = Blue;
-	cub3.SetRotation(-3.14, vec3(0, 1, 0));
-	MyCubeMap.PushBack(cub3);
-	bodcub3 = App->physics->AddBody(cub3, 0);
-	bodcub3->SetPos(83, 0.5, -22);
-	MyPhysbodyCubeMap.PushBack(bodcub3);
-
-
-	/*Cube cub2;
-	PhysBody3D*bodcub2;
-	cub2.size.x = 8;
-	cub2.size.z = 200;
-	MyCubeMap.PushBack(cub2);
-	bodcub2 = App->physics->AddBody(cub2, 0);
-	bodcub2->SetPos(8, 0, 2);
-	MyPhysbodyCubeMap.PushBack(bodcub2);
-	
-	Cube cub3;
-	PhysBody3D*bodcub3;
-	cub3.size.x = 110;
-	cub3.size.z = 8;
-	MyCubeMap.PushBack(cub3);
-	bodcub3 = App->physics->AddBody(cub3, 0);
-	bodcub3->SetPos(51.5, 0, 105.5);
-	MyPhysbodyCubeMap.PushBack(bodcub3);
-
-	Cube cub4;
-	PhysBody3D*bodcub4;
-	cub4.size.x = 110;
-	cub4.size.z = 8;
-	MyCubeMap.PushBack(cub4);
-	bodcub4 = App->physics->AddBody(cub4, 0);
-	bodcub4->SetPos(51.5, 0, 113.5);
-	MyPhysbodyCubeMap.PushBack(bodcub4);*/
-
-	/*Cube cub5;
-	PhysBody3D*bodcub5;
-	cub5.size.x = 8;
-	cub5.size.z = 200;
-	MyCubeMap.PushBack(cub5);
-	bodcub5 = App->physics->AddBody(cub5, 0);
-	bodcub5->SetPos(94.5, -0.5, -30);
-	MyPhysbodyCubeMap.PushBack(bodcub5);
-	*/
+	//Surface
 	Cube PlainGame;
 	PhysBody3D*PlainGame_Body;
 	PlainGame.size.x = 500;
@@ -104,23 +32,79 @@ bool ModuleSceneIntro::Start()
 	PlainGame_Body->SetPos(102.5, -0.5, -30);
 	MyPhysbodyCubeMap.PushBack(PlainGame_Body);
 
-	/*Cube cub7;
-	PhysBody3D*bodcub7;
-	cub7.size.x = 110;
-	cub7.size.z = 8;
-	MyCubeMap.PushBack(cub7);
-	bodcub7 = App->physics->AddBody(cub7, 0);
-	bodcub7->SetPos(51.5, 0, -102);
-	MyPhysbodyCubeMap.PushBack(bodcub7);
 
-	Cube cub8;
-	PhysBody3D*bodcub8;
-	cub8.size.x = 110;
-	cub8.size.z = 8;
-	MyCubeMap.PushBack(cub8);
-	bodcub8 = App->physics->AddBody(cub8, 0);
-	bodcub8->SetPos(51.5, 0, -110);
-	MyPhysbodyCubeMap.PushBack(bodcub8);*/
+
+	Cube roadboarder1L;
+	PhysBody3D*bodcub1;
+	roadboarder1L.size.x = 0.5;
+	roadboarder1L.size.z = 200;
+	roadboarder1L.size.y = 2;
+	roadboarder1L.color = Blue;
+	MyCubeMap.PushBack(roadboarder1L);
+	bodcub1 = App->physics->AddBody(roadboarder1L, 0);
+	bodcub1->SetPos(95.5, 0.5, -122);
+	MyPhysbodyCubeMap.PushBack(bodcub1);
+
+	Cube roadboarder1R;
+	PhysBody3D*bodcub2;
+	roadboarder1R.size.x = 0.5;
+	roadboarder1R.size.z = 200;
+	roadboarder1R.size.y = 2;
+	roadboarder1R.color = Blue;
+	MyCubeMap.PushBack(roadboarder1R);
+	bodcub2 = App->physics->AddBody(roadboarder1R, 0);
+	bodcub2->SetPos(83, 0.5, -122);
+	MyPhysbodyCubeMap.PushBack(bodcub2);
+	
+
+	Cube roadcurve1R;
+	PhysBody3D*bodcub3;
+	roadcurve1R.size.x = 0.5;
+	roadcurve1R.size.z = 20;
+	roadcurve1R.size.y = 2;
+	roadcurve1R.color = Blue;
+	roadcurve1R.SetRotation(-30, vec3(0, 1, 0));
+	MyCubeMap.PushBack(roadcurve1R);
+	bodcub3 = App->physics->AddBody(roadcurve1R, 0);
+	bodcub3->SetPos(78, 0.5, -13.5);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+	
+
+	Cube roadcurve1L;
+	roadcurve1L.size.x = 0.5;
+	roadcurve1L.size.z = 20;
+	roadcurve1L.size.y = 2;
+	roadcurve1L.color = Blue;
+	roadcurve1L.SetRotation(-30, vec3(0, 1, 0));
+	MyCubeMap.PushBack(roadcurve1L);
+	bodcub3 = App->physics->AddBody(roadcurve1L, 0);
+	bodcub3->SetPos(90.5, 0.5, -13.5);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+
+	Cube roadcurve2L;
+	roadcurve2L.size.x = 0.5;
+	roadcurve2L.size.z = 40;
+	roadcurve2L.size.y = 2;
+	roadcurve2L.color = Blue;
+	roadcurve2L.SetRotation(30, vec3(0, 1, 0));
+	MyCubeMap.PushBack(roadcurve2L);
+	bodcub3 = App->physics->AddBody(roadcurve2L, 0);
+	bodcub3->SetPos(95.5, 0.5, 12.25);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+
+	Cube roadcurve2R;
+	roadcurve2R.size.x = 0.5;
+	roadcurve2R.size.z = 40;
+	roadcurve2R.size.y = 2;
+	roadcurve2R.color = Blue;
+	roadcurve2R.SetRotation(30, vec3(0, 1, 0));
+	MyCubeMap.PushBack(roadcurve2R);
+	bodcub3 = App->physics->AddBody(roadcurve2R, 0);
+	bodcub3->SetPos(83, 0.5, 12.25);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+	
+
+	
 
 
 	//-----Objects-----
@@ -180,11 +164,11 @@ bool ModuleSceneIntro::Start()
 	cub6.size.z = 2;
 	cub6.size.y = 5;
 	//SENSOR
-	cub6.color = Black;
+/*	cub6.color = Black;
 	MyCubeMap.PushBack(cub6);
 	bodcub6 = App->physics->AddBody(cub6, 0);
 	bodcub6->SetPos(90.5, 0.1, -200);
-	MyPhysbodyCubeMap.PushBack(bodcub6);
+	MyPhysbodyCubeMap.PushBack(bodcub6);*/
 
 	btVector3 anchor_bodcub6(0,0,0);
 	btVector3 anchor_bodcub7(0, -cub7.size.y/2, 0.5);
@@ -194,6 +178,8 @@ bool ModuleSceneIntro::Start()
 	return ret;
 }
 
+
+
 // Load assets
 bool ModuleSceneIntro::CleanUp()
 {
@@ -201,6 +187,25 @@ bool ModuleSceneIntro::CleanUp()
 
 	return true;
 }
+
+
+update_status ModuleSceneIntro::PreUpdate(float dt)
+{
+
+	for (int i = 0; i < App->player->CanonBallsBody.Count(); i++) 
+	{
+		if (App->player->CanonBallsBody[i]->tokill == true)
+		{
+
+			App->physics->DestroyBody(*App->player->CanonBallsBody[i]);
+			
+			
+		}
+	}
+
+	return UPDATE_CONTINUE;
+}
+
 
 // Update
 update_status ModuleSceneIntro::Update(float dt)
@@ -229,9 +234,10 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	int timepassed;
 	for (int i = 0; i < App->player->CanonBallsBody.Count(); i++) {
 		timepassed = timer.ReadMs();
-		if ((ballkickerObject == body1 || ballkickerObject == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && (timepassed>=1000)) {
+		if ((ballkickerObject == body1 ) && ( App->player->CanonBallsBody[i] == body2) && (timepassed>=1000)) {
 			App->player->puntuation += 10;
 			LOG("Puntuation: %i", App->player->puntuation);
+			body2->tokill = true;
 			timer.Start();
 		}
 	}
