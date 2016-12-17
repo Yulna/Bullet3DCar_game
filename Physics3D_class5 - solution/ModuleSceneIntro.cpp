@@ -167,6 +167,9 @@ bool ModuleSceneIntro::Start()
 
 	//----
 	
+
+
+
 	
 	
 	return ret;
@@ -234,7 +237,8 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 		{
 
 			App->physics->DestroyBody(*App->player->CanonBallsBody[i]);
-			
+			App->player->CanonBallsSpheres.Remove(i);
+			App->player->CanonBallsBody.Remove(i);
 			
 		}
 	}

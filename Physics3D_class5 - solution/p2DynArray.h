@@ -121,6 +121,32 @@ public:
 		return true;
 	}
 
+
+	VALUE* Remove(unsigned int position)
+	{
+		VALUE* ret = nullptr;
+		if (position > num_elements)
+			return ret;
+
+		if (position == num_elements)
+		{
+			Pop(*ret);
+			return ret;
+		}
+		else
+		{
+			ret = &data[position];
+			for (unsigned int i = position; i < num_elements; i++)
+			{
+				data[i] = data[i + 1];
+			}
+			--num_elements;
+		}
+
+
+		return ret;
+	}
+
 	VALUE* At(unsigned int index)
 	{
 		VALUE* result = NULL;

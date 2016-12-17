@@ -9,7 +9,9 @@ PhysBody3D::PhysBody3D()
 
 // =================================================
 PhysBody3D::PhysBody3D(btRigidBody* body) : body(body)
-{}
+{
+	tokill = false;
+}
 
 // ---------------------------------------------------------
 PhysBody3D::~PhysBody3D()

@@ -135,6 +135,10 @@ bool ModulePlayer::Start()
 	canon_turretconst->setMaxMotorImpulse(10.0f);
 
 
+	//Sound and fx------
+	fire = App->audio->LoadFx("fire.ogg");
+
+
 	return true;
 }
 
@@ -211,6 +215,8 @@ update_status ModulePlayer::Update(float dt)
 		Zz = Aa[2];
 		sbody->Push(Zx*force, Zy*force, Zz*force);
 		CanonBallsBody.PushBack(sbody);
+
+		App->audio->PlayFx(fire);
 
 	}
 

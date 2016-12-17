@@ -40,4 +40,7 @@ public:
 
 	int puntuation = 0;
 	int speedlimit = 40;
+
+
+	unsigned int fire = 0;
 };
