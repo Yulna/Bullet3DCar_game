@@ -3,7 +3,8 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 #include "PhysBody3D.h"
-
+#include"ModulePlayer.h"
+#include"PhysVehicle3D.h"
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -140,23 +141,26 @@ bool ModuleSceneIntro::Start()
 	PhysBody3D*bodcub6;
 	cub6.size.x = 4;
 	cub6.size.z = 0.5;
-	cub6.size.y = 1;
+	cub6.size.y = 0;
 	cub6.color = Black;
 	MyCubeMap.PushBack(cub6);
 	bodcub6 = App->physics->AddBody(cub6, 0);
-	bodcub6->SetPos(90.5, 0.1, -200);
+	bodcub6->SetPos(89, 1, -200);
+
 	MyPhysbodyCubeMap.PushBack(bodcub6);
 
 	Cube cub7;
-	PhysBody3D*bodcub7;
+	
 	cub7.size.x = 4;
-	cub7.size.z = 0.5;
+	cub7.size.z = 0;
 	cub7.size.y = 5;
 	cub7.color = Red;
 	MyCubeMap.PushBack(cub7);
 	bodcub7 = App->physics->AddBody(cub7, 1);
-	bodcub7->SetPos(90.5, 5, -200);
+	bodcub7->collision_listeners.add(this);
+	bodcub7->SetPos(89, 10, -200);
 	MyPhysbodyCubeMap.PushBack(bodcub7);
+
 
 	Cube cub_7_6_Sensor;
 	PhysBody3D*bodcub_7_6_Sensor;
@@ -170,11 +174,34 @@ bool ModuleSceneIntro::Start()
 	bodcub6->SetPos(90.5, 0.1, -200);
 	MyPhysbodyCubeMap.PushBack(bodcub6);*/
 
+
 	btVector3 anchor_bodcub6(0,0,0);
-	btVector3 anchor_bodcub7(0, -cub7.size.y/2, 0.5);
+	btVector3 anchor_bodcub7(0, -cub7.size.y/2, 0.01);
 	btVector3 axis_bod_6_7(1, 0, 0);
-	btHingeConstraint *enemyhinge;
+	
 	enemyhinge = App->physics->Add_Hinge_Constraint(*bodcub6->GetRigidBody(), *bodcub7->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod_6_7, axis_bod_6_7, true);
+	enemyhinge->setLimit(-3.14 * 0.5, 0);
+	
+	
+	//SENSOR
+	Cube cub_7_6_Sensor;
+	PhysBody3D*bodcub_7_6_Sensor;
+	cub_7_6_Sensor.size.x = 10;
+	cub_7_6_Sensor.size.z = 2;
+	cub_7_6_Sensor.size.y = 3;
+	MySensorCube.PushBack(cub_7_6_Sensor);
+	bodcub_7_6_Sensor = App->physics->AddBody(cub_7_6_Sensor, 0);
+	bodcub_7_6_Sensor->SetPos(89, 2, -213);
+
+	bodcub_7_6_Sensor->SetAsSensor(true);
+	bodcub_7_6_Sensor->collision_listeners.add(this);
+	MySensorCubeBody.PushBack(bodcub_7_6_Sensor);
+
+
+	//----
+	
+	
+	
 	return ret;
 }
 
@@ -214,17 +241,20 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 	for (int i=0; i < MyCubeMap.Count(); i++) {
-		MyCubeMap[i].Render();
 		MyPhysbodyCubeMap[i]->GetTransform(&MyCubeMap[i].transform);
+		MyCubeMap[i].Render();
+	
 	}
 	for (int i = 0; i < MySphereObj.Count(); i++) {
-		MySphereObj[i].Render();
 		MyPhysbodySphereobj[i]->GetTransform(&MySphereObj[i].transform);
+		MySphereObj[i].Render();
+
 	}
 	for (int i = 0; i < MyCubeObj.Count(); i++) {
-		MyCubeObj[i].Render();
 		MyPhysbodyCubeobj[i]->GetTransform(&MyCubeObj[i].transform);
+		MyCubeObj[i].Render();
 	}
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -240,6 +270,18 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			body2->tokill = true;
 			timer.Start();
 		}
+	
+		if ((bodcub7 == body1 || bodcub7 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2)) {
+			enemyhinge->enableMotor(false);
+		}
+
+	}
+
+	if (MySensorCubeBody[0] == body1 && App->player->turret == body2) {
+		bodcub7->body->activate(true);
+		enemyhinge->enableMotor(true);
+		enemyhinge->setMaxMotorImpulse(10);
+		enemyhinge->setMotorTargetVelocity(10);
 	}
 }
 

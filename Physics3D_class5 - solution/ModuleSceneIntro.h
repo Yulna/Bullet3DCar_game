@@ -9,7 +9,7 @@
 #define MAX_CUBE 50
 struct PhysBody3D;
 struct PhysMotor3D;
-
+struct btHingeConstraint;
 class ModuleSceneIntro : public Module
 {
 public:
@@ -49,7 +49,11 @@ public:
 
 	p2DynArray<Cube> MyCubeObj;
 	p2DynArray<PhysBody3D*> MyPhysbodyCubeobj;
-	
-	j1PerfTimer timer;
 
+	p2DynArray<Cube> MySensorCube;
+	p2DynArray<PhysBody3D*> MySensorCubeBody;
+	j1PerfTimer timer;
+	btHingeConstraint *enemyhinge;
+	PhysBody3D* bodcub7;
+	
 };
