@@ -145,7 +145,7 @@ bool ModuleSceneIntro::Start()
 	cub6.color = Black;
 	MyCubeMap.PushBack(cub6);
 	bodcub6 = App->physics->AddBody(cub6, 0);
-	bodcub6->SetPos(89, 1, -200);
+	bodcub6->SetPos(89, 0.1, -200);
 
 	MyPhysbodyCubeMap.PushBack(bodcub6);
 
@@ -158,7 +158,7 @@ bool ModuleSceneIntro::Start()
 	MyCubeMap.PushBack(cub7);
 	bodcub7 = App->physics->AddBody(cub7, 1);
 	bodcub7->collision_listeners.add(this);
-	bodcub7->SetPos(89, 10, -200);
+	bodcub7->SetPos(89, 5, -200);
 	MyPhysbodyCubeMap.PushBack(bodcub7);
 
 
