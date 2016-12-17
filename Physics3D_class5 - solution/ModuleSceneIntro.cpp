@@ -170,6 +170,33 @@ bool ModuleSceneIntro::Start()
 
 
 
+	Cube cub8_good_guy_base1;
+	PhysBody3D*bodcub8_good_guy_base1;
+	cub8_good_guy_base1.size.x = 4;
+	cub8_good_guy_base1.size.z = 0.5;
+	cub8_good_guy_base1.size.y = 0;
+	cub8_good_guy_base1.color = Black;
+	MyCubeMap.PushBack(cub8_good_guy_base1);
+	bodcub8_good_guy_base1 = App->physics->AddBody(cub8_good_guy_base1, 0);
+	bodcub8_good_guy_base1->SetPos(75, 0.1, -180);
+
+	MyPhysbodyCubeMap.PushBack(bodcub8_good_guy_base1);
+
+	Cube cub8_good_guy1;
+	cub8_good_guy1.size.x = 4;
+	cub8_good_guy1.size.z = 0;
+	cub8_good_guy1.size.y = 5;
+	cub8_good_guy1.color = Green;
+	MyCubeMap.PushBack(cub8_good_guy1);
+	bodcub8_good_guy1 = App->physics->AddBody(cub8_good_guy1, 1);
+	bodcub8_good_guy1->collision_listeners.add(this);
+	bodcub8_good_guy1->SetPos(75, 5, -180);
+	MyPhysbodyCubeMap.PushBack(bodcub8_good_guy1);
+
+	enemyhinge2 = App->physics->Add_Hinge_Constraint(*bodcub8_good_guy_base1->GetRigidBody(), *bodcub8_good_guy1->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod_6_7, axis_bod_6_7, true);
+	enemyhinge2->setLimit(-3.14 * 0.5, 0);
+
+
 	//SENSOR
 
 	
@@ -261,8 +288,15 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			timer.Start();
 		}
 	
-		if ((bodcub7 == body1 || bodcub7 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2)) {
+		if ((bodcub7 == body1 || bodcub7 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && bodcub7->active==true ) {
 			enemyhinge->enableMotor(false);
+			App->player->puntuation += 20;
+			bodcub7->active = false;
+		}
+		if ((bodcub8_good_guy1 == body1 || bodcub8_good_guy1 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && bodcub8_good_guy1->active == true) {
+			enemyhinge2->enableMotor(false);
+			App->player->puntuation -= 10;
+			bodcub8_good_guy1->active = false;
 		}
 
 	}
@@ -272,6 +306,10 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		enemyhinge->enableMotor(true);
 		enemyhinge->setMaxMotorImpulse(10);
 		enemyhinge->setMotorTargetVelocity(10);
+		bodcub8_good_guy1->body->activate(true);
+		enemyhinge2->enableMotor(true);
+		enemyhinge2->setMaxMotorImpulse(10);
+		enemyhinge2->setMotorTargetVelocity(10);
 	}
 }
 

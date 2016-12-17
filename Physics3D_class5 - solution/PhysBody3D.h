@@ -29,6 +29,7 @@ private:
 public:
 	p2List<Module*> collision_listeners;
 	bool tokill;
+	bool active=true;
 };
 
 #endif // __PhysBody3D_H__

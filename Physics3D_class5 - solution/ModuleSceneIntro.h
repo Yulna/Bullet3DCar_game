@@ -54,6 +54,8 @@ public:
 	p2DynArray<PhysBody3D*> MySensorCubeBody;
 	j1PerfTimer timer;
 	btHingeConstraint *enemyhinge;
+	btHingeConstraint *enemyhinge2;
 	PhysBody3D* bodcub7;
+	PhysBody3D* bodcub8_good_guy1;
 	
 };
