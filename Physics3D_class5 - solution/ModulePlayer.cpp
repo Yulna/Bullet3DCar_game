@@ -103,8 +103,8 @@ bool ModulePlayer::Start()
 	
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(88, -8, -222);
-
+	vehicle->SetPos(88, -5, -232);
+	vehicle->collision_listeners.add(this);
 
 	turret = App->physics->AddBody(n, 1);
 //	turret->body->forceActivationState(DISABLE_SIMULATION);
@@ -272,7 +272,7 @@ update_status ModulePlayer::Update(float dt)
 	canon.Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "Puntuation:%i", puntuation);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;

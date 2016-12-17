@@ -21,9 +21,10 @@ public:
 	btRigidBody* GetRigidBody();
 
 	btRigidBody* body = nullptr;
-
+	void SetAsSensor(bool is_sensor);
+	bool IsSensor() const;
 private:
-	
+	bool is_sensor = false;
 
 public:
 	p2List<Module*> collision_listeners;
