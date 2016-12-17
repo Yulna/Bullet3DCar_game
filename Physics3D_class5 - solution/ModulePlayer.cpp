@@ -237,7 +237,7 @@ update_status ModulePlayer::Update(float dt)
 		}
 		if (App->input->GetMouseYMotion() != 0)
 		{
-			canon_turretconst->setMotorTargetVelocity(App->input->GetMouseYMotion() / 3);
+			canon_turretconst->setMotorTargetVelocity(App->input->GetMouseYMotion());
 		}
 	}
 	else
