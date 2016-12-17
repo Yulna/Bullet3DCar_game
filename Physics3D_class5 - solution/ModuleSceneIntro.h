@@ -10,6 +10,10 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 struct btHingeConstraint;
+enum guy {
+	bad_guy,
+	good_guy
+};
 class ModuleSceneIntro : public Module
 {
 public:
@@ -20,9 +24,9 @@ public:
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	bool CleanUp();
-
+	void Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, vec3 position, guy guy_type);
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
-
+	void FirstStage_Activation();
 public:
 
 
@@ -53,9 +57,19 @@ public:
 	p2DynArray<Cube> MySensorCube;
 	p2DynArray<PhysBody3D*> MySensorCubeBody;
 	j1PerfTimer timer;
-	btHingeConstraint *enemyhinge;
-	btHingeConstraint *enemyhinge2;
+
+
+
+	//-----enemy 1-------
 	PhysBody3D* bodcub7;
+	btHingeConstraint *enemyhinge;
+	
+	//-----goodguy 1-----
 	PhysBody3D* bodcub8_good_guy1;
+	btHingeConstraint *enemyhinge2;
+
+	//-----enemy 2-------
+	PhysBody3D *bodcub9_enemy2;
+	btHingeConstraint *enemyhinge3;
 	
 };

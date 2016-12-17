@@ -137,64 +137,14 @@ bool ModuleSceneIntro::Start()
 
 	//-----Targets-----
 
-	Cube cub6;
-	PhysBody3D*bodcub6;
-	cub6.size.x = 4;
-	cub6.size.z = 0.5;
-	cub6.size.y = 0;
-	cub6.color = Black;
-	MyCubeMap.PushBack(cub6);
-	bodcub6 = App->physics->AddBody(cub6, 0);
-	bodcub6->SetPos(89, 0.1, -200);
+	//-----enemy 1-------
+	Create_Guy(&bodcub7, &enemyhinge, vec3(89, 0.1, -200), bad_guy);
 
-	MyPhysbodyCubeMap.PushBack(bodcub6);
+	//-----enemy 2-------
+	Create_Guy(&bodcub9_enemy2, &enemyhinge3, vec3(100, 0.1, -200), bad_guy);
 
-	Cube cub7;
-	
-	cub7.size.x = 4;
-	cub7.size.z = 0;
-	cub7.size.y = 5;
-	cub7.color = Red;
-	MyCubeMap.PushBack(cub7);
-	bodcub7 = App->physics->AddBody(cub7, 1);
-	bodcub7->collision_listeners.add(this);
-	bodcub7->SetPos(89, 5, -200);
-	MyPhysbodyCubeMap.PushBack(bodcub7);
-	btVector3 anchor_bodcub6(0, 0, 0);
-	btVector3 anchor_bodcub7(0, -cub7.size.y / 2, 0.01);
-	btVector3 axis_bod_6_7(1, 0, 0);
-
-	enemyhinge = App->physics->Add_Hinge_Constraint(*bodcub6->GetRigidBody(), *bodcub7->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod_6_7, axis_bod_6_7, true);
-	enemyhinge->setLimit(-3.14 * 0.5, 0);
-
-
-
-
-	Cube cub8_good_guy_base1;
-	PhysBody3D*bodcub8_good_guy_base1;
-	cub8_good_guy_base1.size.x = 4;
-	cub8_good_guy_base1.size.z = 0.5;
-	cub8_good_guy_base1.size.y = 0;
-	cub8_good_guy_base1.color = Black;
-	MyCubeMap.PushBack(cub8_good_guy_base1);
-	bodcub8_good_guy_base1 = App->physics->AddBody(cub8_good_guy_base1, 0);
-	bodcub8_good_guy_base1->SetPos(75, 0.1, -180);
-
-	MyPhysbodyCubeMap.PushBack(bodcub8_good_guy_base1);
-
-	Cube cub8_good_guy1;
-	cub8_good_guy1.size.x = 4;
-	cub8_good_guy1.size.z = 0;
-	cub8_good_guy1.size.y = 5;
-	cub8_good_guy1.color = Green;
-	MyCubeMap.PushBack(cub8_good_guy1);
-	bodcub8_good_guy1 = App->physics->AddBody(cub8_good_guy1, 1);
-	bodcub8_good_guy1->collision_listeners.add(this);
-	bodcub8_good_guy1->SetPos(75, 5, -180);
-	MyPhysbodyCubeMap.PushBack(bodcub8_good_guy1);
-
-	enemyhinge2 = App->physics->Add_Hinge_Constraint(*bodcub8_good_guy_base1->GetRigidBody(), *bodcub8_good_guy1->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod_6_7, axis_bod_6_7, true);
-	enemyhinge2->setLimit(-3.14 * 0.5, 0);
+	//-----good guy 1-----
+	Create_Guy(&bodcub8_good_guy1, &enemyhinge2, vec3(75, 0.1, -180), good_guy);
 
 
 	//SENSOR
@@ -224,12 +174,54 @@ bool ModuleSceneIntro::Start()
 
 
 
+
 // Load assets
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
 	return true;
+}
+
+void ModuleSceneIntro::Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, vec3 position, guy guy_type)
+{
+	Cube cub_base;
+	PhysBody3D*bodcub_base;
+	cub_base.size.x = 4;
+	cub_base.size.z = 0.5;
+	cub_base.size.y = 0;
+	cub_base.color = Black;
+	MyCubeMap.PushBack(cub_base);
+	bodcub_base = App->physics->AddBody(cub_base, 0);
+	bodcub_base->SetPos(position.x, position.y, position.z);
+	MyPhysbodyCubeMap.PushBack(bodcub_base);
+
+
+	Cube cub_enemy_good;
+	cub_enemy_good.size.x = 4;
+	cub_enemy_good.size.z = 0;
+	cub_enemy_good.size.y = 5;
+	if (guy_type == good_guy) {
+		cub_enemy_good.color = Green;
+	}
+	else {
+		cub_enemy_good.color = Red;
+	}
+	MyCubeMap.PushBack(cub_enemy_good);
+	PhysBody3D* bodcub_enemy_good;
+	bodcub_enemy_good = App->physics->AddBody(cub_enemy_good, 1);
+	bodcub_enemy_good->collision_listeners.add(this);
+	bodcub_enemy_good->SetPos(position.x, 5, position.z);
+	MyPhysbodyCubeMap.PushBack(bodcub_enemy_good);
+	btVector3 anchor_bodcub6(0, 0, 0);
+	btVector3 anchor_bodcub7(0, -cub_enemy_good.size.y / 2, 0.01);
+	btVector3 axis_bod_6_7(1, 0, 0);
+	*body = bodcub_enemy_good;
+
+	btHingeConstraint *guy_hinge;
+	guy_hinge = App->physics->Add_Hinge_Constraint(*bodcub_base->GetRigidBody(), *bodcub_enemy_good->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod_6_7, axis_bod_6_7, true);
+	guy_hinge->setLimit(-3.14 * 0.5, 0);
+	*hinge = guy_hinge;
 }
 
 
@@ -293,23 +285,44 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			App->player->puntuation += 20;
 			bodcub7->active = false;
 		}
+
 		if ((bodcub8_good_guy1 == body1 || bodcub8_good_guy1 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && bodcub8_good_guy1->active == true) {
 			enemyhinge2->enableMotor(false);
 			App->player->puntuation -= 10;
 			bodcub8_good_guy1->active = false;
 		}
-
+		
+		if ((bodcub9_enemy2 == body1 || bodcub9_enemy2 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && bodcub9_enemy2->active == true) {
+			enemyhinge3->enableMotor(false);
+			App->player->puntuation += 20;
+			bodcub9_enemy2->active = false;
+		}
 	}
 
 	if (MySensorCubeBody[0] == body1 && App->player->turret == body2) {
-		bodcub7->body->activate(true);
-		enemyhinge->enableMotor(true);
-		enemyhinge->setMaxMotorImpulse(10);
-		enemyhinge->setMotorTargetVelocity(10);
-		bodcub8_good_guy1->body->activate(true);
-		enemyhinge2->enableMotor(true);
-		enemyhinge2->setMaxMotorImpulse(10);
-		enemyhinge2->setMotorTargetVelocity(10);
+		FirstStage_Activation();
 	}
 }
+
+void ModuleSceneIntro::FirstStage_Activation()
+{
+	//----enemy_1
+	bodcub7->body->activate(true);
+	enemyhinge->enableMotor(true);
+	enemyhinge->setMaxMotorImpulse(10);
+	enemyhinge->setMotorTargetVelocity(10);
+	//----good_person_1
+	bodcub8_good_guy1->body->activate(true);
+	enemyhinge2->enableMotor(true);
+	enemyhinge2->setMaxMotorImpulse(10);
+	enemyhinge2->setMotorTargetVelocity(10);
+
+	//--- enemy2----
+	bodcub9_enemy2->body->activate(true);
+	enemyhinge3->enableMotor(true);
+	enemyhinge3->setMaxMotorImpulse(10);
+	enemyhinge3->setMotorTargetVelocity(10);
+
+}
+
 

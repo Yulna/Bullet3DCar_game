@@ -11,6 +11,7 @@ struct PhysBody3D
 {
 	friend class ModulePhysics3D;
 public:
+	PhysBody3D();
 	PhysBody3D(btRigidBody* body);
 	~PhysBody3D();
 
