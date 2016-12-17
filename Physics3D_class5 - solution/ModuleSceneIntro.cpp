@@ -138,14 +138,24 @@ bool ModuleSceneIntro::Start()
 	//-----Targets-----
 
 	//-----enemy 1-------
+	//-----enemy 1-------
+	PhysBody3D* bodcub7;
+	btHingeConstraint *enemyhinge;
 	Create_Guy(&bodcub7, &enemyhinge, vec3(89, 0.1, -200), bad_guy);
-
+	Stage1_guys_bodys.PushBack(bodcub7);
+	Stage1_guys_hinges.PushBack(enemyhinge);
 	//-----enemy 2-------
+	PhysBody3D *bodcub9_enemy2;
+	btHingeConstraint *enemyhinge3;
 	Create_Guy(&bodcub9_enemy2, &enemyhinge3, vec3(100, 0.1, -200), bad_guy);
-
+	Stage1_guys_bodys.PushBack(bodcub9_enemy2);
+	Stage1_guys_hinges.PushBack(enemyhinge3);
 	//-----good guy 1-----
+	PhysBody3D* bodcub8_good_guy1;
+	btHingeConstraint *enemyhinge2;
 	Create_Guy(&bodcub8_good_guy1, &enemyhinge2, vec3(75, 0.1, -180), good_guy);
-
+	Stage1_guys_bodys.PushBack(bodcub8_good_guy1);
+	Stage1_guys_hinges.PushBack(enemyhinge2);
 
 	//SENSOR
 
@@ -204,6 +214,7 @@ void ModuleSceneIntro::Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, 
 	cub_enemy_good.size.x = 4;
 	cub_enemy_good.size.z = 0;
 	cub_enemy_good.size.y = 5;
+	
 	if (guy_type == good_guy) {
 		cub_enemy_good.color = Green;
 	}
@@ -215,6 +226,12 @@ void ModuleSceneIntro::Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, 
 	bodcub_enemy_good = App->physics->AddBody(cub_enemy_good, 1);
 	bodcub_enemy_good->collision_listeners.add(this);
 	bodcub_enemy_good->SetPos(position.x, 5, position.z);
+	if (guy_type == good_guy) {
+		bodcub_enemy_good->type_guy = good_guy;
+	}
+	else {
+		bodcub_enemy_good->type_guy = bad_guy;
+	}
 	MyPhysbodyCubeMap.PushBack(bodcub_enemy_good);
 	btVector3 anchor_bodcub6(0, 0, 0);
 	btVector3 anchor_bodcub7(0, -cub_enemy_good.size.y / 2, 0.01);
@@ -284,23 +301,18 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			timer.Start();
 		}
 	
-		if ((bodcub7 == body1 || bodcub7 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && bodcub7->active==true ) {
-			enemyhinge->enableMotor(false);
-			App->player->puntuation += 20;
-			bodcub7->active = false;
-		}
-
-		if ((bodcub8_good_guy1 == body1 || bodcub8_good_guy1 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && bodcub8_good_guy1->active == true) {
-			enemyhinge2->enableMotor(false);
-			App->player->puntuation -= 10;
-			bodcub8_good_guy1->active = false;
-		}
-		
-		if ((bodcub9_enemy2 == body1 || bodcub9_enemy2 == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && bodcub9_enemy2->active == true) {
-			enemyhinge3->enableMotor(false);
-			App->player->puntuation += 20;
-			bodcub9_enemy2->active = false;
-		}
+		for (int x = 0; x < Stage1_guys_bodys.Count(); x++) {
+			if ((Stage1_guys_bodys[x] == body1 || Stage1_guys_bodys[x] == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && Stage1_guys_bodys[x]->active == true) {
+				Stage1_guys_hinges[x]->enableMotor(false);
+				if (Stage1_guys_bodys[x]->type_guy == bad_guy) {
+					App->player->puntuation += 20;
+				}
+				else {
+					App->player->puntuation -= 10;
+				}
+				Stage1_guys_bodys[x]->active = false;
+			}
+		}		
 	}
 
 	if (MySensorCubeBody[0] == body1 && App->player->turret == body2) {
@@ -311,21 +323,12 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 void ModuleSceneIntro::FirstStage_Activation()
 {
 	//----enemy_1
-	bodcub7->body->activate(true);
-	enemyhinge->enableMotor(true);
-	enemyhinge->setMaxMotorImpulse(10);
-	enemyhinge->setMotorTargetVelocity(10);
-	//----good_person_1
-	bodcub8_good_guy1->body->activate(true);
-	enemyhinge2->enableMotor(true);
-	enemyhinge2->setMaxMotorImpulse(10);
-	enemyhinge2->setMotorTargetVelocity(10);
-
-	//--- enemy2----
-	bodcub9_enemy2->body->activate(true);
-	enemyhinge3->enableMotor(true);
-	enemyhinge3->setMaxMotorImpulse(10);
-	enemyhinge3->setMotorTargetVelocity(10);
+	for (int x = 0; x < Stage1_guys_bodys.Count(); x++) {
+		Stage1_guys_bodys[x]->body->activate(true);
+		Stage1_guys_hinges[x]->enableMotor(true);
+		Stage1_guys_hinges[x]->setMaxMotorImpulse(10);
+		Stage1_guys_hinges[x]->setMotorTargetVelocity(10);
+	}
 
 }
 

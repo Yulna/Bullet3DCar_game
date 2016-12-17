@@ -12,7 +12,8 @@ struct PhysMotor3D;
 struct btHingeConstraint;
 enum guy {
 	bad_guy,
-	good_guy
+	good_guy,
+	unknown
 };
 class ModuleSceneIntro : public Module
 {
@@ -59,17 +60,9 @@ public:
 	j1PerfTimer timer;
 
 
-
-	//-----enemy 1-------
-	PhysBody3D* bodcub7;
-	btHingeConstraint *enemyhinge;
+	p2DynArray<PhysBody3D*> Stage1_guys_bodys;
+	p2DynArray<btHingeConstraint*> Stage1_guys_hinges;
 	
-	//-----goodguy 1-----
-	PhysBody3D* bodcub8_good_guy1;
-	btHingeConstraint *enemyhinge2;
-
-	//-----enemy 2-------
-	PhysBody3D *bodcub9_enemy2;
-	btHingeConstraint *enemyhinge3;
+	
 	
 };

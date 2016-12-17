@@ -5,6 +5,7 @@
 
 class btRigidBody;
 class Module;
+#include"ModuleSceneIntro.h"
 
 // =================================================
 struct PhysBody3D
@@ -20,7 +21,7 @@ public:
 	void SetTransform(const float* matrix) const;
 	void SetPos(float x, float y, float z);
 	btRigidBody* GetRigidBody();
-
+	guy type_guy=unknown;
 	btRigidBody* body = nullptr;
 	void SetAsSensor(bool is_sensor);
 	bool IsSensor() const;
