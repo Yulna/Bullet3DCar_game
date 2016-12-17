@@ -160,28 +160,18 @@ bool ModuleSceneIntro::Start()
 	bodcub7->collision_listeners.add(this);
 	bodcub7->SetPos(89, 5, -200);
 	MyPhysbodyCubeMap.PushBack(bodcub7);
-
-
-	Cube cub_7_6_Sensor;
-	PhysBody3D*bodcub_7_6_Sensor;
-	cub6.size.x = 12;
-	cub6.size.z = 2;
-	cub6.size.y = 5;
-	//SENSOR
-/*	cub6.color = Black;
-	MyCubeMap.PushBack(cub6);
-	bodcub6 = App->physics->AddBody(cub6, 0);
-	bodcub6->SetPos(90.5, 0.1, -200);
-	MyPhysbodyCubeMap.PushBack(bodcub6);*/
-
-
-	btVector3 anchor_bodcub6(0,0,0);
-	btVector3 anchor_bodcub7(0, -cub7.size.y/2, 0.01);
+	btVector3 anchor_bodcub6(0, 0, 0);
+	btVector3 anchor_bodcub7(0, -cub7.size.y / 2, 0.01);
 	btVector3 axis_bod_6_7(1, 0, 0);
-	
+
 	enemyhinge = App->physics->Add_Hinge_Constraint(*bodcub6->GetRigidBody(), *bodcub7->GetRigidBody(), anchor_bodcub6, anchor_bodcub7, axis_bod_6_7, axis_bod_6_7, true);
 	enemyhinge->setLimit(-3.14 * 0.5, 0);
-	
+
+
+
+
+	//SENSOR
+
 	
 	//SENSOR
 	Cube cub_7_6_Sensor;
