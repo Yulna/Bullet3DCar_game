@@ -25,7 +25,7 @@ public:
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	bool CleanUp();
-	void Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, vec3 position, guy guy_type);
+	void Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, vec3 position, guy guy_type, float angle);
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 	void Stage_Activation(int stage);
 
@@ -60,6 +60,7 @@ public:
 	p2DynArray<PhysBody3D*> MySensorCubeBody;
 	j1PerfTimer timer;
 
+	PhysBody3D* house_top_body;
 
 	p2DynArray<PhysBody3D*> Stage1_guys_bodys;
 	p2DynArray<btHingeConstraint*> Stage1_guys_hinges;
@@ -67,6 +68,8 @@ public:
 	p2DynArray<btHingeConstraint*> Stage2_guys_hinges;
 	p2DynArray<PhysBody3D*> Stage3_guys_bodys;
 	p2DynArray<btHingeConstraint*> Stage3_guys_hinges;
+	p2DynArray<PhysBody3D*> Stage4_guys_bodys;
+	p2DynArray<btHingeConstraint*> Stage4_guys_hinges;	
 	PhysBody3D*PlainGame_Body;
 	
 	
