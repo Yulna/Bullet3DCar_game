@@ -27,7 +27,7 @@ public:
 	bool CleanUp();
 	void Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, vec3 position, guy guy_type);
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
-	void FirstStage_Activation();
+	void Stage_Activation(int stage);
 
 public:
 
@@ -65,6 +65,8 @@ public:
 	p2DynArray<btHingeConstraint*> Stage1_guys_hinges;
 	p2DynArray<PhysBody3D*> Stage2_guys_bodys;
 	p2DynArray<btHingeConstraint*> Stage2_guys_hinges;
+	p2DynArray<PhysBody3D*> Stage3_guys_bodys;
+	p2DynArray<btHingeConstraint*> Stage3_guys_hinges;
 	PhysBody3D*PlainGame_Body;
 	
 	
