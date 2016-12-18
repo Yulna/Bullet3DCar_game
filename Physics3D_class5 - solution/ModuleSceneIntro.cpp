@@ -428,14 +428,38 @@ bool ModuleSceneIntro::Start()
 	//------Stage 4------
 	PhysBody3D* bodcub12_enemy8;
 	btHingeConstraint *hinge_enemy8;
-	Create_Guy(&bodcub12_enemy8, &hinge_enemy8, vec3(60, 0.1, 0), bad_guy,0.697);
-	bodcub9_enemy5->active = false;
-	Stage3_guys_bodys.PushBack(bodcub12_enemy8);
-	Stage3_guys_hinges.PushBack(hinge_enemy8);
+	Create_Guy(&bodcub12_enemy8, &hinge_enemy8, vec3(80, 0.1, 40), bad_guy,-45);
+	bodcub12_enemy8->active = false;
+	Stage4_guys_bodys.PushBack(bodcub12_enemy8);
+	Stage4_guys_hinges.PushBack(hinge_enemy8);
 
+	PhysBody3D* bodcub13_enemy9;
+	btHingeConstraint *hinge_enemy9;
+	Create_Guy(&bodcub13_enemy9, &hinge_enemy9, vec3(80, 0.1, 50), good_guy,-45);
+	bodcub13_enemy9->active = false;
+	Stage4_guys_bodys.PushBack(bodcub13_enemy9);
+	Stage4_guys_hinges.PushBack(hinge_enemy9);
 
+	PhysBody3D* bodcub14_enemy10;
+	btHingeConstraint *hinge_enemy10;
+	Create_Guy(&bodcub14_enemy10, &hinge_enemy10, vec3(80, 0.1, 60), bad_guy, -45);
+	bodcub14_enemy10->active = false;
+	Stage4_guys_bodys.PushBack(bodcub14_enemy10);
+	Stage4_guys_hinges.PushBack(hinge_enemy10);
 
+	PhysBody3D* bodcub15_enemy11;
+	btHingeConstraint *hinge_enemy11;
+	Create_Guy(&bodcub15_enemy11, &hinge_enemy11, vec3(115, 0.1, 100), bad_guy, 45);
+	bodcub15_enemy11->active = false;
+	Stage4_guys_bodys.PushBack(bodcub15_enemy11);
+	Stage4_guys_hinges.PushBack(hinge_enemy11);
 
+	PhysBody3D* bodcub16_enemy12;
+	btHingeConstraint *hinge_enemy12;
+	Create_Guy(&bodcub16_enemy12, &hinge_enemy12, vec3(105, 0.1, 110), good_guy, 45);
+	bodcub15_enemy11->active = false;
+	Stage4_guys_bodys.PushBack(bodcub16_enemy12);
+	Stage4_guys_hinges.PushBack(hinge_enemy12);
 
 
 	//SENSOR
@@ -484,7 +508,20 @@ bool ModuleSceneIntro::Start()
 	MySensorCubeBody.PushBack(bodcub_Sensor3);
 
 
-	
+	//---- sensor 4----
+	Cube cub_Sensor4;
+	PhysBody3D* bodcub_Sensor4;
+	cub_Sensor4.size.x = 10;
+	cub_Sensor4.size.z = 2;
+	cub_Sensor4.size.y = 3;
+	MySensorCube.PushBack(cub_Sensor4);
+	bodcub_Sensor4 = App->physics->AddBody(cub_Sensor4, 0);
+	bodcub_Sensor4->SetPos(88, 2, 10);
+
+	bodcub_Sensor4->SetAsSensor(true);
+	bodcub_Sensor4->collision_listeners.add(this);
+	MySensorCubeBody.PushBack(bodcub_Sensor4);
+
 	
 	return ret;
 }
@@ -658,6 +695,20 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			}
 		}
 
+		for (int x = 0; x < Stage4_guys_bodys.Count(); x++) {
+			if ((Stage4_guys_bodys[x] == body1 || Stage4_guys_bodys[x] == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && Stage4_guys_bodys[x]->active == true) {
+				Stage4_guys_hinges[x]->enableMotor(false);
+				if (Stage4_guys_bodys[x]->type_guy == bad_guy) {
+					App->player->puntuation += 20;
+				}
+				else {
+					App->player->puntuation -= 10;
+				}
+				body2->tokill = true;
+				Stage4_guys_bodys[x]->active = false;
+			}
+		}
+
 	}
 
 	if (MySensorCubeBody[0] == body1 && App->player->turret == body2 && MySensorCubeBody[0]->active==true) {
@@ -673,6 +724,11 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	if (MySensorCubeBody[2] == body1 && App->player->turret == body2 && MySensorCubeBody[2]->active == true) {
 		Stage_Activation(3);
 		MySensorCubeBody[2]->active = false;
+	}
+
+	if (MySensorCubeBody[3] == body1 && App->player->turret == body2 && MySensorCubeBody[3]->active == true) {
+		Stage_Activation(4);
+		MySensorCubeBody[3]->active = false;
 	}
 }
 
@@ -705,6 +761,16 @@ void ModuleSceneIntro::Stage_Activation(int stage)
 			Stage3_guys_hinges[x]->enableMotor(true);
 			Stage3_guys_hinges[x]->setMaxMotorImpulse(10);
 			Stage3_guys_hinges[x]->setMotorTargetVelocity(10);
+		}
+	}
+
+	else if (stage == 4) {
+		for (int x = 0; x < Stage4_guys_bodys.Count(); x++) {
+			Stage4_guys_bodys[x]->body->activate(true);
+			Stage4_guys_bodys[x]->active = true;
+			Stage4_guys_hinges[x]->enableMotor(true);
+			Stage4_guys_hinges[x]->setMaxMotorImpulse(10);
+			Stage4_guys_hinges[x]->setMotorTargetVelocity(10);
 		}
 	}
 
