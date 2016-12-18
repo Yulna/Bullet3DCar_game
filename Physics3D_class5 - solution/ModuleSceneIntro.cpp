@@ -35,7 +35,7 @@ bool ModuleSceneIntro::Start()
 	MyPhysbodyCubeMap.PushBack(PlainGame_Body);
 
 
-
+	//Road
 	Cube roadboarder1L;
 	PhysBody3D*bodcub1;
 	roadboarder1L.size.x = 0.5;
@@ -58,7 +58,6 @@ bool ModuleSceneIntro::Start()
 	bodcub2->SetPos(83, 0.5, -122);
 	MyPhysbodyCubeMap.PushBack(bodcub2);
 	
-
 	Cube roadcurve1R;
 	PhysBody3D*bodcub3;
 	roadcurve1R.size.x = 0.5;
@@ -70,7 +69,6 @@ bool ModuleSceneIntro::Start()
 	bodcub3 = App->physics->AddBody(roadcurve1R, 0);
 	bodcub3->SetPos(78, 0.5, -13.5);
 	MyPhysbodyCubeMap.PushBack(bodcub3);
-	
 
 	Cube roadcurve1L;
 	roadcurve1L.size.x = 0.5;
@@ -105,9 +103,78 @@ bool ModuleSceneIntro::Start()
 	bodcub3->SetPos(83, 0.5, 12.25);
 	MyPhysbodyCubeMap.PushBack(bodcub3);
 	
-
+	Cube roadboarder2R;
+	roadboarder2R.size.x = 0.5;
+	roadboarder2R.size.z = 50;
+	roadboarder2R.size.y = 2;
+	roadboarder2R.color = Blue;
+	MyCubeMap.PushBack(roadboarder2R);
+	bodcub3 = App->physics->AddBody(roadboarder2R, 0);
+	bodcub3->SetPos(92.9, 0.5, 54.5);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
 	
+	Cube roadboarder2L;
+	roadboarder2L.size.x = 0.5;
+	roadboarder2L.size.z = 50;
+	roadboarder2L.size.y = 2;
+	roadboarder2L.color = Blue;
+	MyCubeMap.PushBack(roadboarder2L);
+	bodcub3 = App->physics->AddBody(roadboarder2L, 0);
+	bodcub3->SetPos(105.4, 0.5, 54.5);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
 
+	Cube roadcurve3L;
+	roadcurve3L.size.x = 0.5;
+	roadcurve3L.size.z = 40;
+	roadcurve3L.size.y = 2;
+	roadcurve3L.color = Blue;
+	roadcurve3L.SetRotation(-45, vec3(0, 1, 0));
+	MyCubeMap.PushBack(roadcurve3L);
+	bodcub3 = App->physics->AddBody(roadcurve3L, 0);
+	bodcub3->SetPos(92, 0.5, 93);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+
+	Cube roadcurve3R;
+	roadcurve3R.size.x = 0.5;
+	roadcurve3R.size.z = 20;
+	roadcurve3R.size.y = 2;
+	roadcurve3R.color = Blue;
+	roadcurve3R.SetRotation(-45, vec3(0, 1, 0));
+	MyCubeMap.PushBack(roadcurve3R);
+	bodcub3 = App->physics->AddBody(roadcurve3R, 0);
+	bodcub3->SetPos(85.8, 0.5, 86.5);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+
+	Cube roadboarder3L;
+	roadboarder3L.size.x = 100;
+	roadboarder3L.size.z = 0.5;
+	roadboarder3L.size.y = 2;
+	roadboarder3L.color = Blue;
+	MyCubeMap.PushBack(roadboarder3L);
+	bodcub3 = App->physics->AddBody(roadboarder3L, 0);
+	bodcub3->SetPos(28.8, 0.5, 93.5);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+
+	Cube roadboarder3R;
+	roadboarder3R.size.x = 100;
+	roadboarder3R.size.z = 0.5;
+	roadboarder3R.size.y = 2;
+	roadboarder3R.color = Blue;
+	MyCubeMap.PushBack(roadboarder3R);
+	bodcub3 = App->physics->AddBody(roadboarder3R, 0);
+	bodcub3->SetPos(28.8, 0.5, 106);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+
+	Cube roadcurve4R;
+	roadcurve4R.size.x = 0.5;
+	roadcurve4R.size.z = 20;
+	roadcurve4R.size.y = 2;
+	roadcurve4R.color = Blue;
+	roadcurve4R.SetRotation(45, vec3(0, 1, 0));
+	MyCubeMap.PushBack(roadcurve4R);
+	bodcub3 = App->physics->AddBody(roadcurve4R, 0);
+	bodcub3->SetPos(85.8, 0.5, 86.5);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
 
 	//-----Objects-----
 
