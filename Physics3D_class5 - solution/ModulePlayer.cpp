@@ -103,7 +103,7 @@ bool ModulePlayer::Start()
 	
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(88, -5, -232);
+	vehicle->SetPos(88, -5, -240);
 	vehicle->collision_listeners.add(this);
 
 	turret = App->physics->AddBody(n, 1);

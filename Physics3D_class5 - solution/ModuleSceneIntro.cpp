@@ -25,12 +25,13 @@ bool ModuleSceneIntro::Start()
 	//------Map-----
 	//Surface
 	Cube PlainGame;
-	PhysBody3D*PlainGame_Body;
+
 	PlainGame.size.x = 500;
 	PlainGame.size.z = 500;
 	MyCubeMap.PushBack(PlainGame);
 	PlainGame_Body = App->physics->AddBody(PlainGame, 0);
 	PlainGame_Body->SetPos(102.5, -0.5, -30);
+	PlainGame_Body->collision_listeners.add(this);
 	MyPhysbodyCubeMap.PushBack(PlainGame_Body);
 
 
@@ -138,7 +139,6 @@ bool ModuleSceneIntro::Start()
 	//-----Targets-----
 
 	//-----enemy 1-------
-	//-----enemy 1-------
 	PhysBody3D* bodcub7;
 	btHingeConstraint *enemyhinge;
 	Create_Guy(&bodcub7, &enemyhinge, vec3(89, 0.1, -200), bad_guy);
@@ -157,6 +157,36 @@ bool ModuleSceneIntro::Start()
 	Stage1_guys_bodys.PushBack(bodcub8_good_guy1);
 	Stage1_guys_hinges.PushBack(enemyhinge2);
 
+	//-----good guy 2-----
+	PhysBody3D* bodcub8_good_guy2;
+	btHingeConstraint *goodguy_hinge2;
+	Create_Guy(&bodcub8_good_guy2, &goodguy_hinge2, vec3(86, 0.1, -180), good_guy);
+	Stage1_guys_bodys.PushBack(bodcub8_good_guy2);
+	Stage1_guys_hinges.PushBack(goodguy_hinge2);
+
+
+	//---------Stage 2-------
+
+	//-----enemy 3-------
+	PhysBody3D* bodcub9_enemy3;
+	btHingeConstraint *hinge_enemy3;
+	Create_Guy(&bodcub9_enemy3, &hinge_enemy3, vec3(89, 0.1, -160), bad_guy);
+	Stage2_guys_bodys.PushBack(bodcub9_enemy3);
+	Stage2_guys_hinges.PushBack(hinge_enemy3);
+	/*//-----enemy 4-------
+	PhysBody3D *bodcub9_enemy2;
+	btHingeConstraint *enemyhinge3;
+	Create_Guy(&bodcub9_enemy2, &enemyhinge3, vec3(100, 0.1, -200), bad_guy);
+	Stage1_guys_bodys.PushBack(bodcub9_enemy2);
+	Stage1_guys_hinges.PushBack(enemyhinge3);
+	//-----good guy 3-----
+	PhysBody3D* bodcub8_good_guy1;
+	btHingeConstraint *enemyhinge2;
+	Create_Guy(&bodcub8_good_guy1, &enemyhinge2, vec3(75, 0.1, -180), good_guy);
+	Stage1_guys_bodys.PushBack(bodcub8_good_guy1);
+	Stage1_guys_hinges.PushBack(enemyhinge2);*/
+
+
 	//SENSOR
 
 	
@@ -168,7 +198,7 @@ bool ModuleSceneIntro::Start()
 	cub_7_6_Sensor.size.y = 3;
 	MySensorCube.PushBack(cub_7_6_Sensor);
 	bodcub_7_6_Sensor = App->physics->AddBody(cub_7_6_Sensor, 0);
-	bodcub_7_6_Sensor->SetPos(89, 2, -213);
+	bodcub_7_6_Sensor->SetPos(89, 2, -220);
 
 	bodcub_7_6_Sensor->SetAsSensor(true);
 	bodcub_7_6_Sensor->collision_listeners.add(this);
@@ -297,10 +327,15 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		if ((ballkickerObject == body1 ) && ( App->player->CanonBallsBody[i] == body2) && (timepassed>=1000)) {
 			App->player->puntuation += 10;
 			LOG("Puntuation: %i", App->player->puntuation);
+	
+			timer.Start();
+		}
+
+		if ((PlainGame_Body == body1) && (App->player->CanonBallsBody[i] == body2) && (timepassed >= 3000)) {
 			body2->tokill = true;
 			timer.Start();
 		}
-	
+
 		for (int x = 0; x < Stage1_guys_bodys.Count(); x++) {
 			if ((Stage1_guys_bodys[x] == body1 || Stage1_guys_bodys[x] == body2) && (App->player->CanonBallsBody[i] == body1 || App->player->CanonBallsBody[i] == body2) && Stage1_guys_bodys[x]->active == true) {
 				Stage1_guys_hinges[x]->enableMotor(false);
@@ -319,6 +354,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		FirstStage_Activation();
 	}
 }
+
 
 void ModuleSceneIntro::FirstStage_Activation()
 {
