@@ -489,6 +489,9 @@ bool ModuleSceneIntro::Start()
 	Stage4_guys_bodys.PushBack(bodcub20_enemy16);
 	Stage4_guys_hinges.PushBack(hinge_enemy16);
 
+
+
+
 	//SENSOR
 	Cube cub_7_6_Sensor;
 	PhysBody3D*bodcub_7_6_Sensor;
@@ -549,6 +552,20 @@ bool ModuleSceneIntro::Start()
 	bodcub_Sensor4->collision_listeners.add(this);
 	MySensorCubeBody.PushBack(bodcub_Sensor4);
 
+	//---- sensor 4----
+	Cube cub_Sensor5;
+	PhysBody3D* bodcub_Sensor5;
+	cub_Sensor5.size.x = 10;
+	cub_Sensor5.size.z = 2;
+	cub_Sensor5.size.y = 3;
+	cub_Sensor5.SetRotation(90,vec3(0,1,0));
+	MySensorCube.PushBack(cub_Sensor5);
+	bodcub_Sensor5 = App->physics->AddBody(cub_Sensor5, 0);
+	bodcub_Sensor5->SetPos(10, 0.1, 83);
+
+	bodcub_Sensor5->SetAsSensor(true);
+	bodcub_Sensor5->collision_listeners.add(this);
+	MySensorCubeBody.PushBack(bodcub_Sensor5);
 	
 	return ret;
 }
@@ -800,7 +817,15 @@ void ModuleSceneIntro::Stage_Activation(int stage)
 			Stage4_guys_hinges[x]->setMotorTargetVelocity(10);
 		}
 	}
-
+	else if (stage == 5) {
+		for (int x = 0; x < Stage5_guys_bodys.Count(); x++) {
+			Stage4_guys_bodys[x]->body->activate(true);
+			Stage4_guys_bodys[x]->active = true;
+			Stage4_guys_hinges[x]->enableMotor(true);
+			Stage4_guys_hinges[x]->setMaxMotorImpulse(10);
+			Stage4_guys_hinges[x]->setMotorTargetVelocity(10);
+		}
+	}
 }
 
 
