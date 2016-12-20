@@ -373,7 +373,7 @@ bool ModuleSceneIntro::Start()
 
 
 	//-----Targets-----
-
+	//---------Stage 2-------
 	//-----enemy 2-------
 	PhysBody3D* bodcub7;
 	btHingeConstraint *enemyhinge;
@@ -975,9 +975,70 @@ void ModuleSceneIntro::Stage_Activation(int stage)
 void ModuleSceneIntro::Reset()
 {
 	App->player->timelimit.Start();
-	App->player->vehicle->SetPos(88, 0, -240);
+	//App->player->vehicle->SetPos(88, 0, -240);
 	
+	for (int i = 0; i < MySensorCubeBody.Count(); i++) {
+		MySensorCubeBody[i]->active = true;
+	}
+	for (int x = 0; x < Stage1_guys_bodys.Count(); x++) {
+		if (Stage1_guys_bodys[x]->active == true) {
+			Stage1_guys_bodys[x]->body->activate(true);
+			Stage1_guys_hinges[x]->enableMotor(true);
+			Stage1_guys_hinges[x]->setMaxMotorImpulse(10);
+			Stage1_guys_hinges[x]->setMotorTargetVelocity(-100000);
+			Stage1_guys_bodys[x]->active = false;
+		}
+	}
 
+	for (int x = 0; x < Stage2_guys_bodys.Count(); x++) {
+		if (Stage2_guys_bodys[x]->active == true) {
+			Stage2_guys_bodys[x]->body->activate(true);
+			Stage2_guys_hinges[x]->enableMotor(true);
+			Stage2_guys_hinges[x]->setMaxMotorImpulse(10);
+			Stage2_guys_hinges[x]->setMotorTargetVelocity(-100000);
+			Stage2_guys_bodys[x]->active = false;
+		}
+	}
+
+	for (int x = 0; x < Stage3_guys_bodys.Count(); x++) {
+		if (Stage3_guys_bodys[x]->active == true) {
+			Stage3_guys_bodys[x]->body->activate(true);
+			Stage3_guys_hinges[x]->enableMotor(true);
+			Stage3_guys_hinges[x]->setMaxMotorImpulse(10);
+			Stage3_guys_hinges[x]->setMotorTargetVelocity(-100000);
+			Stage3_guys_bodys[x]->active = false;
+		}
+	}
+
+	for (int x = 0; x < Stage4_guys_bodys.Count(); x++) {
+		if (Stage4_guys_bodys[x]->active == true) {
+			Stage4_guys_bodys[x]->body->activate(true);
+			Stage4_guys_hinges[x]->enableMotor(true);
+			Stage4_guys_hinges[x]->setMaxMotorImpulse(10);
+			Stage4_guys_hinges[x]->setMotorTargetVelocity(-100000);
+			Stage4_guys_bodys[x]->active = false;
+		}
+	}
+
+	for (int x = 0; x < Stage5_guys_bodys.Count(); x++) {
+		if (Stage5_guys_bodys[x]->active == true) {
+			Stage5_guys_bodys[x]->body->activate(true);
+			Stage5_guys_hinges[x]->enableMotor(true);
+			Stage5_guys_hinges[x]->setMaxMotorImpulse(10);
+			Stage5_guys_hinges[x]->setMotorTargetVelocity(-100000);
+			Stage5_guys_bodys[x]->active = false;
+		}
+	}
+
+	for (int x = 0; x < Stage6_guys_bodys.Count(); x++) {
+		if (Stage6_guys_bodys[x]->active == true) {
+			Stage6_guys_bodys[x]->body->activate(true);
+			Stage6_guys_hinges[x]->enableMotor(true);
+			Stage6_guys_hinges[x]->setMaxMotorImpulse(10);
+			Stage6_guys_hinges[x]->setMotorTargetVelocity(-100000);
+			Stage6_guys_bodys[x]->active = false;
+		}
+	}
 }
 
 
