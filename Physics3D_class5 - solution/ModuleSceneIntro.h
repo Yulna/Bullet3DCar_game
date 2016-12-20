@@ -73,6 +73,8 @@ public:
 	p2DynArray<btHingeConstraint*> Stage4_guys_hinges;	
 	p2DynArray<PhysBody3D*> Stage5_guys_bodys;
 	p2DynArray<btHingeConstraint*> Stage5_guys_hinges;
+	p2DynArray<PhysBody3D*> Stage6_guys_bodys;
+	p2DynArray<btHingeConstraint*> Stage6_guys_hinges;
 
 	PhysBody3D*PlainGame_Body;
 	
