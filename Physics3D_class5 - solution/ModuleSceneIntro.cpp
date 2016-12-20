@@ -561,7 +561,7 @@ bool ModuleSceneIntro::Start()
 	cub_Sensor5.SetRotation(90,vec3(0,1,0));
 	MySensorCube.PushBack(cub_Sensor5);
 	bodcub_Sensor5 = App->physics->AddBody(cub_Sensor5, 0);
-	bodcub_Sensor5->SetPos(10, 0.1, 83);
+	bodcub_Sensor5->SetPos(10, 0.1, 93);
 
 	bodcub_Sensor5->SetAsSensor(true);
 	bodcub_Sensor5->collision_listeners.add(this);
