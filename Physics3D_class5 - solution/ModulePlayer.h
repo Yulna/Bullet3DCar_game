@@ -20,6 +20,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	void EndGameScore();
+
 public:
 	Cube n;
 	PhysBody3D* turret;

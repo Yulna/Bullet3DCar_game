@@ -295,6 +295,16 @@ bool ModuleSceneIntro::Start()
 	bodcub3->SetPos(-125.5, 0.5, -61);
 	MyPhysbodyCubeMap.PushBack(bodcub3);
 
+	Cube roadboarderEnd;
+	roadboarderEnd.size.x = 0.5;
+	roadboarderEnd.size.z = 14;
+	roadboarderEnd.size.y = 3.5;
+	roadboarderEnd.color = Blue;
+	MyCubeMap.PushBack(roadboarderEnd);
+	bodcub3 = App->physics->AddBody(roadboarderEnd, 0);
+	bodcub3->SetPos(-175.5, 0.5, -54.75);
+	MyPhysbodyCubeMap.PushBack(bodcub3);
+
 	Cube house_top;
 	house_top.size.x = 10;
 	house_top.size.z = 5;
@@ -975,8 +985,11 @@ void ModuleSceneIntro::Stage_Activation(int stage)
 void ModuleSceneIntro::Reset()
 {
 	App->player->timelimit.Start();
-	//App->player->vehicle->SetPos(88, 0, -240);
 	
+	mat4x4 A(1,0,0,0,0,1,0,0,0,0,1,0,88,2,-240,1);
+	App->player->vehicle->SetTransform(A.M);
+
+
 	for (int i = 0; i < MySensorCubeBody.Count(); i++) {
 		MySensorCubeBody[i]->active = true;
 	}
