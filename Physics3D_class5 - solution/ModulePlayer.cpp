@@ -25,7 +25,7 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
+	car.chassis_size.Set(3, 1.5, 4);
 	car.chassis_offset.Set(0, 1.5, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
@@ -33,10 +33,10 @@ bool ModulePlayer::Start()
 	car.suspensionDamping = 0.88f;
 	car.maxSuspensionTravelCm = 1000.0f;
 	car.frictionSlip = 50.5;
-	car.maxSuspensionForce = 6000.0f;
+	car.maxSuspensionForce = 4000.0f;
 
 	// Wheel properties ---------------------------------------
-	float connection_height = 1.2f;
+	float connection_height = 1.0f;
 	float wheel_radius = 0.6f;
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
@@ -107,7 +107,7 @@ bool ModulePlayer::Start()
 	vehicle->collision_listeners.add(this);
 
 	turret = App->physics->AddBody(n, 1);
-//	turret->body->forceActivationState(DISABLE_SIMULATION);
+	n.color = Green;
 
 
 
@@ -154,6 +154,13 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
+	if ((TIME_LIMIT < timelimit.ReadSec()))
+	{
+		vehicle->Brake(10000);
+		App->window->SetTitle("Game Over!!!");
+		return UPDATE_CONTINUE;
+	}
+
 
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && vehicle->GetKmh() < speedlimit)
 	{
@@ -242,7 +249,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 	else
 	{
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT|| App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT|| App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT|| App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT )
 		{
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			{
@@ -262,7 +269,7 @@ update_status ModulePlayer::Update(float dt)
 				turret_carconst->setMotorTargetVelocity(2);
 			}
 		}
-		else 
+		else
 		{
 			canon_turretconst->setMotorTargetVelocity(-0.05);
 			turret_carconst->setMotorTargetVelocity(0);
@@ -289,7 +296,7 @@ update_status ModulePlayer::Update(float dt)
 	char title[80];
 	if (mouse) 
 	{
-		sprintf_s(title, "Puntuation:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, speedlimit);
+		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
 	else

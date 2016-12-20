@@ -8,6 +8,7 @@ struct PhysVehicle3D;
 #define MAX_ACCELERATION 800.0f
 #define TURN_DEGREES 15.0f * DEGTORAD
 #define BRAKE_POWER 1000.0f
+#define	TIME_LIMIT 300
 
 class ModulePlayer : public Module
 {
@@ -41,6 +42,7 @@ public:
 	int puntuation = 0;
 	int speedlimit = 40;
 
+	Timer timelimit;
 
 	unsigned int fire = 0;
 };

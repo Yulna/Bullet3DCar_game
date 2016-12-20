@@ -637,6 +637,8 @@ void ModuleSceneIntro::Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, 
 
 update_status ModuleSceneIntro::PreUpdate(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		Reset();
 
 	for (int i = 0; i < App->player->CanonBallsBody.Count(); i++) 
 	{
@@ -826,6 +828,14 @@ void ModuleSceneIntro::Stage_Activation(int stage)
 			Stage4_guys_hinges[x]->setMotorTargetVelocity(10);
 		}
 	}
+}
+
+void ModuleSceneIntro::Reset()
+{
+	App->player->timelimit.Start();
+	App->player->vehicle->SetPos(88, 0, -240);
+	
+
 }
 
 

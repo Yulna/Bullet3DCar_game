@@ -28,6 +28,7 @@ public:
 	void Create_Guy(PhysBody3D **body, btHingeConstraint **hinge, vec3 position, guy guy_type, float angle);
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 	void Stage_Activation(int stage);
+	void Reset();
 
 public:
 
