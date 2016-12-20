@@ -137,6 +137,11 @@ bool ModulePlayer::Start()
 	canon_turretconst->setMaxMotorImpulse(10.0f);
 
 
+
+	//
+	canonbody->SetPos(88, 8, -240);
+	turret->SetPos(88, 6.5, -240);
+
 	//Sound and fx------
 	fire = App->audio->LoadFx("fire.ogg");
 

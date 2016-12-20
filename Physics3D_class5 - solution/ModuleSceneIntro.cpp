@@ -988,6 +988,9 @@ void ModuleSceneIntro::Reset()
 	
 	mat4x4 A(1,0,0,0,0,1,0,0,0,0,1,0,88,2,-240,1);
 	App->player->vehicle->SetTransform(A.M);
+	A[13] = 5;
+	App->player->turret->SetTransform(A.M);
+	App->player->canonbody->SetTransform(A.M);
 
 
 	for (int i = 0; i < MySensorCubeBody.Count(); i++) {
