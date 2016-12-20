@@ -457,10 +457,37 @@ bool ModuleSceneIntro::Start()
 	PhysBody3D* bodcub16_enemy12;
 	btHingeConstraint *hinge_enemy12;
 	Create_Guy(&bodcub16_enemy12, &hinge_enemy12, vec3(105, 0.1, 110), good_guy, 45);
-	bodcub15_enemy11->active = false;
+	bodcub16_enemy12->active = false;
 	Stage4_guys_bodys.PushBack(bodcub16_enemy12);
 	Stage4_guys_hinges.PushBack(hinge_enemy12);
 
+	PhysBody3D* bodcub17_enemy13;
+	btHingeConstraint *hinge_enemy13;
+	Create_Guy(&bodcub17_enemy13, &hinge_enemy13, vec3(60, 0.1, 120), good_guy, -45);
+	bodcub17_enemy13->active = false;
+	Stage4_guys_bodys.PushBack(bodcub17_enemy13);
+	Stage4_guys_hinges.PushBack(hinge_enemy13);
+
+	PhysBody3D* bodcub18_enemy14;
+	btHingeConstraint *hinge_enemy14;
+	Create_Guy(&bodcub18_enemy14, &hinge_enemy14, vec3(60, 0.1, 83), bad_guy, 180);
+	bodcub18_enemy14->active = false;
+	Stage4_guys_bodys.PushBack(bodcub18_enemy14);
+	Stage4_guys_hinges.PushBack(hinge_enemy14);
+
+	PhysBody3D* bodcub19_enemy15;
+	btHingeConstraint *hinge_enemy15;
+	Create_Guy(&bodcub19_enemy15, &hinge_enemy15, vec3(30, 0.1, 110), good_guy, 0);
+	bodcub19_enemy15->active = false;
+	Stage4_guys_bodys.PushBack(bodcub19_enemy15);
+	Stage4_guys_hinges.PushBack(hinge_enemy15);
+
+	PhysBody3D* bodcub20_enemy16;
+	btHingeConstraint *hinge_enemy16;
+	Create_Guy(&bodcub20_enemy16, &hinge_enemy16, vec3(10, 0.1, 83), bad_guy, 180);
+	bodcub20_enemy16->active = false;
+	Stage4_guys_bodys.PushBack(bodcub20_enemy16);
+	Stage4_guys_hinges.PushBack(hinge_enemy16);
 
 	//SENSOR
 	Cube cub_7_6_Sensor;
