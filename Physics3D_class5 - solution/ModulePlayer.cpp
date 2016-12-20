@@ -33,7 +33,7 @@ bool ModulePlayer::Start()
 	car.suspensionDamping = 0.88f;
 	car.maxSuspensionTravelCm = 1000.0f;
 	car.frictionSlip = 50.5;
-	car.maxSuspensionForce = 4000.0f;
+	car.maxSuspensionForce = 20000.0f;
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.0f;
@@ -103,8 +103,9 @@ bool ModulePlayer::Start()
 	
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(88, -5, -240);
+	vehicle->SetPos(88, 10, -240);
 	vehicle->collision_listeners.add(this);
+	
 
 	turret = App->physics->AddBody(n, 1);
 	n.color = Green;
@@ -284,7 +285,6 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
-	
 	vehicle->Render();
 	turret->GetTransform(&n.transform);
 
@@ -301,7 +301,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 	else
 	{
-		sprintf_s(title, "Puntuation:%i   SpeedLimit:%i   Camera control: Keys", puntuation, speedlimit);
+		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Keys", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
 
