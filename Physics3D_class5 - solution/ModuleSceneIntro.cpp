@@ -179,7 +179,7 @@ bool ModuleSceneIntro::Start()
 	Cube roadcurve4L;
 	roadcurve4L.size.x = 0.5;
 	roadcurve4L.size.z = 40;
-	roadcurve4L.size.y = 3.5;
+	roadcurve4L.size.y = 4;
 	roadcurve4L.color = Blue;
 	roadcurve4L.SetRotation(45, vec3(0, 1, 0));
 	MyCubeMap.PushBack(roadcurve4L);
@@ -191,7 +191,7 @@ bool ModuleSceneIntro::Start()
 	Cube roadboarder4R;
 	roadboarder4R.size.x = 0.5;
 	roadboarder4R.size.z = 100;
-	roadboarder4R.size.y = 3.5;
+	roadboarder4R.size.y = 4;
 	roadboarder4R.color = Blue;
 	MyCubeMap.PushBack(roadboarder4R);
 	bodcub3 = App->physics->AddBody(roadboarder4R, 0);
@@ -985,7 +985,7 @@ void ModuleSceneIntro::Stage_Activation(int stage)
 void ModuleSceneIntro::Reset()
 {
 	App->player->timelimit.Start();
-	
+	App->player->puntuation = 0;
 	mat4x4 A(1,0,0,0,0,1,0,0,0,0,1,0,88,2,-240,1);
 	App->player->vehicle->SetTransform(A.M);
 	A[13] = 5;
