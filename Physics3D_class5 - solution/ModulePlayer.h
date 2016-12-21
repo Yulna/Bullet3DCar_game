@@ -42,6 +42,7 @@ public:
 	bool mouse= true;
 
 	int puntuation = 0;
+
 	int speedlimit = 40;
 
 	Timer timelimit;
