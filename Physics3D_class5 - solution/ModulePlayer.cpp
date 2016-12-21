@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include "ModuleSceneIntro.h"
 
 #define PI 3.14159265
 
@@ -161,7 +162,18 @@ bool ModulePlayer::CleanUp()
 
 void ModulePlayer::EndGameScore()
 {
-	puntuation += (TIME_LIMIT - timelimit.ReadSec())*5;
+	puntuation += (TIME_LIMIT - timelimit.ReadSec())*2;
+
+	for (int x = 0; x < App->scene_intro->Stage1_guys_bodys.Count(); x++) 
+	{
+		if (App->scene_intro->Stage1_guys_bodys[x]->type_guy == good_guy &&App->scene_intro->Stage1_guys_bodys[x]->active == true)
+			puntuation += 50;
+
+		if (App->scene_intro->Stage1_guys_bodys[x]->type_guy == bad_guy &&App->scene_intro->Stage1_guys_bodys[x]->active == true)
+			puntuation -= 50;
+	}
+
+
 
 
 
@@ -311,10 +323,13 @@ update_status ModulePlayer::Update(float dt)
 	
 	canon.Render();
 
-	char title[80];
+	if (puntuation > highscore)
+		highscore = puntuation;
+
+	char title[200];
 	if (mouse) 
 	{
-		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
+		sprintf_s(title, "Puntuation:%i  Highscore:%i  Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, highscore, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
 	else
@@ -324,7 +339,8 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 	if (App->scene_intro->win == true) {
-		App->window->SetTitle("You finish the game!!! If you want to play another round click R");
+		sprintf_s(title, "You finish the game!!! If you want to play another round click R   Round puntuation:%i   Total Highscore:%i", puntuation, highscore);
+		App->window->SetTitle(title);
 	}
 
 	return UPDATE_CONTINUE;

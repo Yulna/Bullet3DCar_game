@@ -969,6 +969,9 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		App->audio->PlayFx(finish_sound);
 		win = true;
 		MySensorCubeBody[6]->active = false;
+		
+		App->player->EndGameScore();
+
 	}
 }
 
@@ -1110,6 +1113,7 @@ void ModuleSceneIntro::Reset()
 			Stage6_guys_bodys[x]->active = false;
 		}
 	}
+
 }
 
 
