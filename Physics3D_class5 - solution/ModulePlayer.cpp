@@ -175,7 +175,7 @@ update_status ModulePlayer::Update(float dt)
 	if ((TIME_LIMIT < timelimit.ReadSec()))
 	{
 		vehicle->Brake(10000);
-		App->window->SetTitle("Game Over!!!");
+		App->window->SetTitle("The end!!! If you want to play another round click R");
 		return UPDATE_CONTINUE;
 	}
 
@@ -320,6 +320,10 @@ update_status ModulePlayer::Update(float dt)
 	{
 		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Keys", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
+	}
+
+	if (App->scene_intro->win == true) {
+		App->window->SetTitle("You finish the game!!! If you want to play another round click R");
 	}
 
 	return UPDATE_CONTINUE;

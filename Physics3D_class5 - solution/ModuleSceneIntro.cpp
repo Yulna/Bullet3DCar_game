@@ -1,4 +1,4 @@
-#include "Globals.h"
+﻿#include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
@@ -20,7 +20,7 @@ bool ModuleSceneIntro::Start()
 
 	//music_scene1 = App->audio->LoadFx("DMX_-_X_Gon_39_Give_It_To_Ya_Official_Instrumental.ogg");
 	App->audio->PlayMusic("DMX - X Gon' Give It To Ya (Official Instrumental).ogg", 1);
-
+	finish_sound = App->audio->LoadFx("FinishSound.ogg");
 	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
@@ -703,6 +703,20 @@ bool ModuleSceneIntro::Start()
 	bodcub_Sensor6->SetAsSensor(true);
 	bodcub_Sensor6->collision_listeners.add(this);
 	MySensorCubeBody.PushBack(bodcub_Sensor6);
+
+	//---- sensor 7----
+	Cube cub_Sensor7;
+	PhysBody3D* bodcub_Sensor7;
+	cub_Sensor7.size.x = 3;
+	cub_Sensor7.size.z = 13;
+	cub_Sensor7.size.y = 10;
+	MySensorCube.PushBack(cub_Sensor7);
+	bodcub_Sensor7 = App->physics->AddBody(cub_Sensor7,0);
+	bodcub_Sensor7->SetPos(-140.5, 0.5, -54.75);
+
+	bodcub_Sensor7->SetAsSensor(true);
+	bodcub_Sensor7->collision_listeners.add(this);
+	MySensorCubeBody.PushBack(bodcub_Sensor7);
 	
 	return ret;
 }
@@ -950,6 +964,12 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		Stage_Activation(6);
 		MySensorCubeBody[5]->active = false;
 	}
+
+	if (MySensorCubeBody[6] == body1 && App->player->turret == body2 && MySensorCubeBody[6]->active == true) {
+		App->audio->PlayFx(finish_sound);
+		win = true;
+		MySensorCubeBody[6]->active = false;
+	}
 }
 
 
@@ -1027,7 +1047,7 @@ void ModuleSceneIntro::Reset()
 	App->player->canonbody->SetTransform(A.M);
 	App->player->turret->SetTransform(A.M);
 
-
+	win = false;
 	for (int i = 0; i < MySensorCubeBody.Count(); i++) {
 		MySensorCubeBody[i]->active = true;
 	}

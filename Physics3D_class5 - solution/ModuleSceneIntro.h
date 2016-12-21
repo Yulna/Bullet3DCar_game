@@ -77,6 +77,7 @@ public:
 	p2DynArray<btHingeConstraint*> Stage6_guys_hinges;
 
 	PhysBody3D*PlainGame_Body;
-	
+	bool win = false;
 	uint music_scene1 = 0;
+	uint finish_sound = 0;
 };
