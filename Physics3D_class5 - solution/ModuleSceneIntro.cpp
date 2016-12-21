@@ -39,6 +39,35 @@ bool ModuleSceneIntro::Start()
 
 
 	//Road
+	Cube roadboarderStartR;
+	PhysBody3D*bodcub2;
+	roadboarderStartR.size.x = 0.5;
+	roadboarderStartR.size.z = 20;
+	roadboarderStartR.size.y = 4;
+	roadboarderStartR.color = Blue;
+	MyCubeMap.PushBack(roadboarderStartR);
+	bodcub2 = App->physics->AddBody(roadboarderStartR, 0);
+	bodcub2->SetPos(83, 0.5, -232);
+	MyPhysbodyCubeMap.PushBack(bodcub2);
+	Cube roadboarderStartL;
+	roadboarderStartL.size.x = 0.5;
+	roadboarderStartL.size.z = 20;
+	roadboarderStartL.size.y = 4;
+	roadboarderStartL.color = Blue;
+	MyCubeMap.PushBack(roadboarderStartL);
+	bodcub2 = App->physics->AddBody(roadboarderStartL, 0);
+	bodcub2->SetPos(95.5, 0.5, -232);
+	MyPhysbodyCubeMap.PushBack(bodcub2);
+	Cube roadboarderStartB;
+	roadboarderStartB.size.x = 13;
+	roadboarderStartB.size.z = 0.5;
+	roadboarderStartB.size.y = 4;
+	roadboarderStartB.color = Blue;
+	MyCubeMap.PushBack(roadboarderStartB);
+	bodcub2 = App->physics->AddBody(roadboarderStartB, 0);
+	bodcub2->SetPos(89.25, 0.5, -242);
+	MyPhysbodyCubeMap.PushBack(bodcub2);
+
 	Cube roadboarder1L;
 	PhysBody3D*bodcub1;
 	roadboarder1L.size.x = 0.5;
@@ -51,7 +80,6 @@ bool ModuleSceneIntro::Start()
 	MyPhysbodyCubeMap.PushBack(bodcub1);
 
 	Cube roadboarder1R;
-	PhysBody3D*bodcub2;
 	roadboarder1R.size.x = 0.5;
 	roadboarder1R.size.z = 200;
 	roadboarder1R.size.y = 3.5;
@@ -989,11 +1017,15 @@ void ModuleSceneIntro::Reset()
 {
 	App->player->timelimit.Start();
 	App->player->puntuation = 0;
-	mat4x4 A(1,0,0,0,0,1,0,0,0,0,1,0,88,2,-240,1);
+	mat4x4 A(1,0,0,0,0,1,0,0,0,0,1,0,88,2,-232,1);
 	App->player->vehicle->SetTransform(A.M);
+	A[0] = 0;
+	A[2] = 1;
+	A[8] = -1;
+	A[10] = 0;
 	A[13] = 5;
-	App->player->turret->SetTransform(A.M);
 	App->player->canonbody->SetTransform(A.M);
+	App->player->turret->SetTransform(A.M);
 
 
 	for (int i = 0; i < MySensorCubeBody.Count(); i++) {
