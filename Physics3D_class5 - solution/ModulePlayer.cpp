@@ -309,10 +309,10 @@ update_status ModulePlayer::Update(float dt)
 	
 	canon.Render();
 
-	char title[80];
+	char title[150];
 	if (mouse) 
 	{
-		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
+		sprintf_s(title, "Puntuation:%i  HighScore:%i   Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, highscore, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
 	else
@@ -320,6 +320,11 @@ update_status ModulePlayer::Update(float dt)
 		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Keys", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
+
+
+	if (puntuation > highscore)
+		highscore = puntuation;
+
 
 	return UPDATE_CONTINUE;
 }
