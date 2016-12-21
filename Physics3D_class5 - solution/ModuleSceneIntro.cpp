@@ -29,8 +29,8 @@ bool ModuleSceneIntro::Start()
 	//Surface
 	Cube PlainGame;
 
-	PlainGame.size.x = 500;
-	PlainGame.size.z = 500;
+	PlainGame.size.x = 700;
+	PlainGame.size.z = 700;
 	MyCubeMap.PushBack(PlainGame);
 	PlainGame_Body = App->physics->AddBody(PlainGame, 0);
 	PlainGame_Body->SetPos(102.5, -0.5, -30);
