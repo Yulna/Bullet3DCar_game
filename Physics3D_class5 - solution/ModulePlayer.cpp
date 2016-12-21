@@ -126,6 +126,7 @@ bool ModulePlayer::Start()
 	btVector3 axisnturretcanon(0, 0, 1);
 	canon.height = 2.5;
 	canon.radius = 0.5;
+	canon.color = Black;
 	canonbody = App->physics->AddBody(canon, 1);
 //	canonbody->body->forceActivationState(DISABLE_SIMULATION);
 
