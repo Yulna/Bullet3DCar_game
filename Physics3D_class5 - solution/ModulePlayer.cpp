@@ -36,7 +36,7 @@ bool ModulePlayer::Start()
 	car.maxSuspensionForce = 6000.0f;
 
 	// Wheel properties ---------------------------------------
-	float connection_height = 1.5f;
+	float connection_height = 1.0f;
 	float wheel_radius = 0.6f;
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
@@ -309,10 +309,10 @@ update_status ModulePlayer::Update(float dt)
 	
 	canon.Render();
 
-	char title[150];
+	char title[80];
 	if (mouse) 
 	{
-		sprintf_s(title, "Puntuation:%i  HighScore:%i   Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, highscore, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
+		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
 	else
@@ -320,11 +320,6 @@ update_status ModulePlayer::Update(float dt)
 		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Keys", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
-
-
-	if (puntuation > highscore)
-		highscore = puntuation;
-
 
 	return UPDATE_CONTINUE;
 }

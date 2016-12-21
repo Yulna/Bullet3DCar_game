@@ -18,6 +18,9 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
+	//music_scene1 = App->audio->LoadFx("DMX_-_X_Gon_39_Give_It_To_Ya_Official_Instrumental.ogg");
+	App->audio->PlayMusic("DMX - X Gon' Give It To Ya (Official Instrumental).ogg", 1);
+
 	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
@@ -40,7 +43,7 @@ bool ModuleSceneIntro::Start()
 	PhysBody3D*bodcub1;
 	roadboarder1L.size.x = 0.5;
 	roadboarder1L.size.z = 200;
-	roadboarder1L.size.y = 4;
+	roadboarder1L.size.y = 3.5;
 	roadboarder1L.color = Blue;
 	MyCubeMap.PushBack(roadboarder1L);
 	bodcub1 = App->physics->AddBody(roadboarder1L, 0);
@@ -51,7 +54,7 @@ bool ModuleSceneIntro::Start()
 	PhysBody3D*bodcub2;
 	roadboarder1R.size.x = 0.5;
 	roadboarder1R.size.z = 200;
-	roadboarder1R.size.y = 4;
+	roadboarder1R.size.y = 3.5;
 	roadboarder1R.color = Blue;
 	MyCubeMap.PushBack(roadboarder1R);
 	bodcub2 = App->physics->AddBody(roadboarder1R, 0);
@@ -62,7 +65,7 @@ bool ModuleSceneIntro::Start()
 	PhysBody3D*bodcub3;
 	roadcurve1R.size.x = 0.5;
 	roadcurve1R.size.z = 20;
-	roadcurve1R.size.y = 4;
+	roadcurve1R.size.y = 3.5;
 	roadcurve1R.color = Blue;
 	roadcurve1R.SetRotation(-30, vec3(0, 1, 0));
 	MyCubeMap.PushBack(roadcurve1R);
@@ -799,7 +802,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			timer.Start();
 		}
 
-		if ((PlainGame_Body == body1) && (App->player->CanonBallsBody[i] == body2) && (timepassed >= 3000)) {
+		if ((PlainGame_Body == body1) && (App->player->CanonBallsBody[i] == body2)) {
 			body2->tokill = true;
 			timer.Start();
 		}

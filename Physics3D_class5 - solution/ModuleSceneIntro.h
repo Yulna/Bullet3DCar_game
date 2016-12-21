@@ -78,5 +78,5 @@ public:
 
 	PhysBody3D*PlainGame_Body;
 	
-	
+	uint music_scene1 = 0;
 };
