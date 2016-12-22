@@ -195,7 +195,7 @@ bool ModuleSceneIntro::Start()
 	bodcub3 = App->physics->AddBody(roadboarder3R, 0);
 	bodcub3->SetPos(28.8, 0.5, 106);
 	MyPhysbodyCubeMap.PushBack(bodcub3);
-
+	/*
 	Cube roadcurve4R;
 	roadcurve4R.size.x = 0.5;
 	roadcurve4R.size.z = 20;
@@ -303,7 +303,7 @@ bool ModuleSceneIntro::Start()
 	MyCubeMap.PushBack(roadcurve7R);
 	bodcub3 = App->physics->AddBody(roadcurve7R, 0);
 	bodcub3->SetPos(-61.5, 0.5, -75);
-	MyPhysbodyCubeMap.PushBack(bodcub3);
+	MyPhysbodyCubeMap.PushBack(bodcub3);*/
 
 
 	Cube roadboarder5L;
@@ -386,28 +386,7 @@ bool ModuleSceneIntro::Start()
 	house_top_body->SetPos(-40, 8, -10);
 	MyPhysbodyCubeMap.PushBack(house_top_body);
 
-	//-----Objects-----
-
-	Sphere ballkicker;
-	ballkicker.SetPos(1, 1, 1);
-	ballkicker.radius = 1;
-	MySphereObj.PushBack(ballkicker);
 	
-
-	ballkickerObject = App->physics->AddBody(ballkicker, 1);
-	MyPhysbodySphereobj.PushBack(ballkickerObject);
-	ballkickerObject->collision_listeners.add(this);
-
-	Cube rect;
-	rect.size.y = 3;
-	MyCubeObj.PushBack(rect);
-
-	PhysBody3D* RectObject;
-	RectObject = App->physics->AddBody(rect, 0);
-	MyPhysbodyCubeobj.PushBack(RectObject);
-
-	//P2P Constraint to make ball kicker with rect 
-	App->physics->Add_P2P_Constraint(*ballkickerObject->GetRigidBody(), *RectObject->GetRigidBody(), btVector3(0, 1, 0), btVector3(0, 1, 0), true);
 	timer.Start();
 	
 
@@ -624,6 +603,17 @@ bool ModuleSceneIntro::Start()
 	Create_Guy(&bodcub28_enemy26, &hinge_enemy24, vec3(-100, 0.1, -80), bad_guy, 210);
 	bodcub28_enemy26->active = false;
 	Stage6_guys_bodys.PushBack(bodcub28_enemy26);
+	Stage6_guys_hinges.PushBack(hinge_enemy24);
+
+	PhysBody3D* bodcub28_enemy27;
+	Create_Guy(&bodcub28_enemy27, &hinge_enemy24, vec3(-120, 0.1, -35), bad_guy, -70);
+	bodcub28_enemy27->active = false;
+	Stage6_guys_bodys.PushBack(bodcub28_enemy27);
+	Stage6_guys_hinges.PushBack(hinge_enemy24);
+	PhysBody3D* bodcub28_enemy28;
+	Create_Guy(&bodcub28_enemy28, &hinge_enemy24, vec3(-110, 0.1, -40), good_guy, -70);
+	bodcub28_enemy28->active = false;
+	Stage6_guys_bodys.PushBack(bodcub28_enemy28);
 	Stage6_guys_hinges.PushBack(hinge_enemy24);
 
 	//SENSOR
@@ -1053,6 +1043,7 @@ void ModuleSceneIntro::Reset()
 	App->audio->ResumeMusic();
 	App->player->timelimit.Start();
 	App->player->puntuation = 0;
+	App->player->vehicle->Brake(10000);
 	mat4x4 A(1,0,0,0,0,1,0,0,0,0,1,0,88,2,-232,1);
 	App->player->vehicle->SetTransform(A.M);
 	A[0] = 0;
