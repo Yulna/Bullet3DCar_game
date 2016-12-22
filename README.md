@@ -23,6 +23,8 @@ The time limit is 100 seconds, for every second left at reaching the end of the 
 [A] Turn right   
 [D] Turn left   
 [SPACE] Stop     
+[LEFT SHIFT] Increase speed limit by 20  
+[LEFT CONTROL] Reduce speed limit by 20    
 Note: All movement is done from the tank perspective not the camera one
 
 ####Canon control
