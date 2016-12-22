@@ -234,6 +234,7 @@ update_status ModulePlayer::Update(float dt)
 		return UPDATE_CONTINUE;
 	}
 
+	
 
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && vehicle->GetKmh() < speedlimit)
 	{
