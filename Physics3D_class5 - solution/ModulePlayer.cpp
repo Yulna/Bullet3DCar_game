@@ -167,14 +167,56 @@ void ModulePlayer::EndGameScore()
 	for (int x = 0; x < App->scene_intro->Stage1_guys_bodys.Count(); x++) 
 	{
 		if (App->scene_intro->Stage1_guys_bodys[x]->type_guy == good_guy &&App->scene_intro->Stage1_guys_bodys[x]->active == true)
-			puntuation += 50;
+			puntuation += 75;
 
 		if (App->scene_intro->Stage1_guys_bodys[x]->type_guy == bad_guy &&App->scene_intro->Stage1_guys_bodys[x]->active == true)
 			puntuation -= 50;
 	}
 
+	for (int x = 0; x < App->scene_intro->Stage2_guys_bodys.Count(); x++)
+	{
+		if (App->scene_intro->Stage2_guys_bodys[x]->type_guy == good_guy &&App->scene_intro->Stage2_guys_bodys[x]->active == true)
+			puntuation += 75;
 
+		if (App->scene_intro->Stage2_guys_bodys[x]->type_guy == bad_guy &&App->scene_intro->Stage2_guys_bodys[x]->active == true)
+			puntuation -= 50;
+	}
 
+	for (int x = 0; x < App->scene_intro->Stage3_guys_bodys.Count(); x++)
+	{
+		if (App->scene_intro->Stage3_guys_bodys[x]->type_guy == good_guy &&App->scene_intro->Stage3_guys_bodys[x]->active == true)
+			puntuation += 75;
+
+		if (App->scene_intro->Stage3_guys_bodys[x]->type_guy == bad_guy &&App->scene_intro->Stage3_guys_bodys[x]->active == true)
+			puntuation -= 50;
+	}
+
+	for (int x = 0; x < App->scene_intro->Stage4_guys_bodys.Count(); x++)
+	{
+		if (App->scene_intro->Stage4_guys_bodys[x]->type_guy == good_guy &&App->scene_intro->Stage4_guys_bodys[x]->active == true)
+			puntuation += 75;
+
+		if (App->scene_intro->Stage4_guys_bodys[x]->type_guy == bad_guy &&App->scene_intro->Stage4_guys_bodys[x]->active == true)
+			puntuation -= 50;
+	}
+
+	for (int x = 0; x < App->scene_intro->Stage5_guys_bodys.Count(); x++)
+	{
+		if (App->scene_intro->Stage5_guys_bodys[x]->type_guy == good_guy &&App->scene_intro->Stage5_guys_bodys[x]->active == true)
+			puntuation += 75;
+
+		if (App->scene_intro->Stage5_guys_bodys[x]->type_guy == bad_guy &&App->scene_intro->Stage5_guys_bodys[x]->active == true)
+			puntuation -= 50;
+	}
+
+	for (int x = 0; x < App->scene_intro->Stage6_guys_bodys.Count(); x++)
+	{
+		if (App->scene_intro->Stage6_guys_bodys[x]->type_guy == good_guy &&App->scene_intro->Stage6_guys_bodys[x]->active == true)
+			puntuation += 75;
+
+		if (App->scene_intro->Stage6_guys_bodys[x]->type_guy == bad_guy &&App->scene_intro->Stage6_guys_bodys[x]->active == true)
+			puntuation -= 50;
+	}
 
 
 }
@@ -219,14 +261,18 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && speedlimit<100)
 	{
 		speedlimit += 20;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN && speedlimit>20)
 	{
 		speedlimit -= 20;
 	}
+
+	//Slow down when speed exceed speedlimit
+	if (speedlimit < vehicle->GetKmh())
+		acceleration = -MAX_ACCELERATION;
 
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_KP_0) == KEY_DOWN)

@@ -79,7 +79,7 @@ bool ModuleSceneIntro::Start()
 	bodcub1->SetPos(95.5, 0.5, -122);
 	MyPhysbodyCubeMap.PushBack(bodcub1);
 
-	Cube roadboarder1R;
+	/*Cube roadboarder1R;
 	roadboarder1R.size.x = 0.5;
 	roadboarder1R.size.z = 200;
 	roadboarder1R.size.y = 3.5;
@@ -87,7 +87,7 @@ bool ModuleSceneIntro::Start()
 	MyCubeMap.PushBack(roadboarder1R);
 	bodcub2 = App->physics->AddBody(roadboarder1R, 0);
 	bodcub2->SetPos(83, 0.5, -122);
-	MyPhysbodyCubeMap.PushBack(bodcub2);
+	MyPhysbodyCubeMap.PushBack(bodcub2);*/
 	
 	Cube roadcurve1R;
 	PhysBody3D*bodcub3;
@@ -612,6 +612,18 @@ bool ModuleSceneIntro::Start()
 	Create_Guy(&bodcub28_enemy24, &hinge_enemy24, vec3(-30, 0.1, -80), bad_guy, 180);
 	bodcub28_enemy24->active = false;
 	Stage6_guys_bodys.PushBack(bodcub28_enemy24);
+	Stage6_guys_hinges.PushBack(hinge_enemy24);
+
+	PhysBody3D* bodcub28_enemy25;
+	Create_Guy(&bodcub28_enemy25, &hinge_enemy24, vec3(-50, 0.1, -60), good_guy, 0);
+	bodcub28_enemy25->active = false;
+	Stage6_guys_bodys.PushBack(bodcub28_enemy25);
+	Stage6_guys_hinges.PushBack(hinge_enemy24);
+
+	PhysBody3D* bodcub28_enemy26;
+	Create_Guy(&bodcub28_enemy26, &hinge_enemy24, vec3(-100, 0.1, -80), bad_guy, 210);
+	bodcub28_enemy26->active = false;
+	Stage6_guys_bodys.PushBack(bodcub28_enemy26);
 	Stage6_guys_hinges.PushBack(hinge_enemy24);
 
 	//SENSOR
