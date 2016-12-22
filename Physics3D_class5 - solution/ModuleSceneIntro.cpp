@@ -966,7 +966,9 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	}
 
 	if (MySensorCubeBody[6] == body1 && App->player->turret == body2 && MySensorCubeBody[6]->active == true) {
+		App->audio->StopMusic();
 		App->audio->PlayFx(finish_sound);
+		
 		win = true;
 		MySensorCubeBody[6]->active = false;
 		
@@ -1038,6 +1040,7 @@ void ModuleSceneIntro::Stage_Activation(int stage)
 
 void ModuleSceneIntro::Reset()
 {
+	App->audio->ResumeMusic();
 	App->player->timelimit.Start();
 	App->player->puntuation = 0;
 	mat4x4 A(1,0,0,0,0,1,0,0,0,0,1,0,88,2,-232,1);

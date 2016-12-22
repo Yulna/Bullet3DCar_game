@@ -68,6 +68,44 @@ bool ModuleAudio::CleanUp()
 	return true;
 }
 
+bool ModuleAudio::StopMusic()
+{
+	bool ret = true;
+	if (music != NULL)
+	{
+		Mix_PauseMusic();
+		if (Mix_PausedMusic == 0)
+		{
+			LOG("Music wasn't paused. Mix_GetError(): %s", Mix_GetError());
+			ret = false;
+		}
+		else
+		{
+			LOG("Music Paused");
+		}
+	}
+	return ret;
+}
+
+bool ModuleAudio::ResumeMusic()
+{
+	bool ret = true;
+	if (music != NULL)
+	{
+		Mix_ResumeMusic();
+		if (Mix_Playing(-1) == 0)
+		{
+			LOG("Music is now playing.");
+			ret = false;
+		}
+		else
+		{
+			LOG("Music dosent play. Mix_GetError(): %s", Mix_GetError());
+		}
+	}
+	return ret;
+}
+
 // Play a music file
 bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 {
