@@ -227,10 +227,10 @@ void ModulePlayer::EndGameScore()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
-	if ((TIME_LIMIT < timelimit.ReadSec()) && App->scene_intro->win ==false )
+	if ((TIME_LIMIT < timelimit.ReadSec()) && App->scene_intro->win == false )
 	{
 		vehicle->Brake(10000);
-		App->window->SetTitle("The end!!! If you want to play another round click R");
+		App->window->SetTitle("Time out! Press R to start the next round");
 		return UPDATE_CONTINUE;
 	}
 
@@ -385,7 +385,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 	if (App->scene_intro->win == true) {
-		sprintf_s(title, "You finish the game!!! If you want to play another round click R   Round puntuation:%i   Total Highscore:%i", puntuation, highscore);
+		sprintf_s(title, "Congratulations you finsished the game!!! Round puntuation:%i   Total Highscore:%i    Press R to start the next round", puntuation, highscore);
 		App->window->SetTitle(title);
 	}
 
