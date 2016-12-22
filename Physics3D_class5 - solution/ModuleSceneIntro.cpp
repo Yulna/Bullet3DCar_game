@@ -18,9 +18,9 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	//music_scene1 = App->audio->LoadFx("DMX_-_X_Gon_39_Give_It_To_Ya_Official_Instrumental.ogg");
 	App->audio->PlayMusic("DMX - X Gon' Give It To Ya (Official Instrumental).ogg", 1);
 	finish_sound = App->audio->LoadFx("FinishSound.ogg");
+	App->audio->VolumeMusic(50);
 	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
@@ -79,7 +79,7 @@ bool ModuleSceneIntro::Start()
 	bodcub1->SetPos(95.5, 0.5, -122);
 	MyPhysbodyCubeMap.PushBack(bodcub1);
 
-	/*Cube roadboarder1R;
+	Cube roadboarder1R;
 	roadboarder1R.size.x = 0.5;
 	roadboarder1R.size.z = 200;
 	roadboarder1R.size.y = 3.5;
@@ -87,7 +87,7 @@ bool ModuleSceneIntro::Start()
 	MyCubeMap.PushBack(roadboarder1R);
 	bodcub2 = App->physics->AddBody(roadboarder1R, 0);
 	bodcub2->SetPos(83, 0.5, -122);
-	MyPhysbodyCubeMap.PushBack(bodcub2);*/
+	MyPhysbodyCubeMap.PushBack(bodcub2);
 	
 	Cube roadcurve1R;
 	PhysBody3D*bodcub3;
@@ -195,7 +195,7 @@ bool ModuleSceneIntro::Start()
 	bodcub3 = App->physics->AddBody(roadboarder3R, 0);
 	bodcub3->SetPos(28.8, 0.5, 106);
 	MyPhysbodyCubeMap.PushBack(bodcub3);
-	/*
+	
 	Cube roadcurve4R;
 	roadcurve4R.size.x = 0.5;
 	roadcurve4R.size.z = 20;
@@ -303,7 +303,7 @@ bool ModuleSceneIntro::Start()
 	MyCubeMap.PushBack(roadcurve7R);
 	bodcub3 = App->physics->AddBody(roadcurve7R, 0);
 	bodcub3->SetPos(-61.5, 0.5, -75);
-	MyPhysbodyCubeMap.PushBack(bodcub3);*/
+	MyPhysbodyCubeMap.PushBack(bodcub3);
 
 
 	Cube roadboarder5L;
