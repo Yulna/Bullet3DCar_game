@@ -18,7 +18,7 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->audio->PlayMusic("DMX - X Gon' Give It To Ya (Official Instrumental).ogg", 1);
+	App->audio->PlayMusic("BackgroundMusic.ogg", 1);
 	finish_sound = App->audio->LoadFx("FinishSound.ogg");
 	App->audio->VolumeMusic(50);
 	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
