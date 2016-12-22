@@ -227,7 +227,7 @@ void ModulePlayer::EndGameScore()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
-	if ((TIME_LIMIT < timelimit.ReadSec()))
+	if ((TIME_LIMIT < timelimit.ReadSec()) && App->scene_intro->win ==false )
 	{
 		vehicle->Brake(10000);
 		App->window->SetTitle("The end!!! If you want to play another round click R");
@@ -375,12 +375,12 @@ update_status ModulePlayer::Update(float dt)
 	char title[200];
 	if (mouse) 
 	{
-		sprintf_s(title, "Puntuation:%i  Highscore:%i  Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, highscore, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
+		sprintf_s(title, "Score:%i  Highscore:%i  Time:%i   SpeedLimit:%i   Camera control: Mouse", puntuation, highscore, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
 	else
 	{
-		sprintf_s(title, "Puntuation:%i  Time:%i   SpeedLimit:%i   Camera control: Keys", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
+		sprintf_s(title, "Score:%i  Time:%i   SpeedLimit:%i   Camera control: Keys", puntuation, TIME_LIMIT - timelimit.ReadSec(), speedlimit);
 		App->window->SetTitle(title);
 	}
 

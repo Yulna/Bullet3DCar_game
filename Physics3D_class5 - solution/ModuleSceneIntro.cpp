@@ -856,7 +856,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 					App->player->puntuation += 20;
 				}
 				else {
-					App->player->puntuation -= 10;
+					App->player->puntuation -= 25;
 				}
 				body2->tokill = true;
 				Stage1_guys_bodys[x]->active = false;
@@ -871,7 +871,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 					App->player->puntuation += 20;
 				}
 				else {
-					App->player->puntuation -= 10;
+					App->player->puntuation -= 25;
 				}
 				body2->tokill = true;
 				Stage2_guys_bodys[x]->active = false;
@@ -885,7 +885,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 					App->player->puntuation += 20;
 				}
 				else {
-					App->player->puntuation -= 10;
+					App->player->puntuation -= 25;
 				}
 				body2->tokill = true;
 				Stage3_guys_bodys[x]->active = false;
@@ -899,7 +899,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 					App->player->puntuation += 20;
 				}
 				else {
-					App->player->puntuation -= 10;
+					App->player->puntuation -= 25;
 				}
 				body2->tokill = true;
 				Stage4_guys_bodys[x]->active = false;
@@ -913,7 +913,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 					App->player->puntuation += 20;
 				}
 				else {
-					App->player->puntuation -= 10;
+					App->player->puntuation -= 25;
 				}
 				body2->tokill = true;
 				Stage5_guys_bodys[x]->active = false;
@@ -927,7 +927,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 					App->player->puntuation += 20;
 				}
 				else {
-					App->player->puntuation -= 10;
+					App->player->puntuation -= 25;
 				}
 				body2->tokill = true;
 				Stage6_guys_bodys[x]->active = false;
