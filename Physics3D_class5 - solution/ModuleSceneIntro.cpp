@@ -810,9 +810,7 @@ update_status ModuleSceneIntro::PreUpdate(float dt)
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
+
 	for (int i=0; i < MyCubeMap.Count(); i++) {
 		MyPhysbodyCubeMap[i]->GetTransform(&MyCubeMap[i].transform);
 		MyCubeMap[i].Render();
